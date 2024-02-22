@@ -1,0 +1,39 @@
+@use '/src//componentes/index/estilos/base/variables' as v;
+
+
+.publicaciones{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    
+
+    .publi-contenido{
+        background-color: v.$background;
+        margin: 20px;
+
+        .publi-contenido-img{
+            border-top-left-radius: 10px; border-top-right-radius: 10px;
+        }
+
+        & div{
+            display: flex;
+            gap: 20px;
+            margin: 10px;
+
+            .publi-contenido-usuario{
+                font-family: v.$font-Khand;
+                font-weight: 800;
+            }
+        }
+
+        .publi-contenido-parrafo{
+            font-family: v.$font-Switzer;
+            margin: 10px;
+            font-size: 15px;
+        }
+    }
+}
+
+

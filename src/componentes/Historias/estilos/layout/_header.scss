@@ -1,0 +1,11 @@
+@use '/src//componentes/index/estilos/base/variables' as v;
+
+.header-titulo {
+    text-wrap: balance;
+    text-align: center;
+    font-size: 25px;
+    font-size: v.$font-Khand;
+    color: v.$Text;
+    font-weight: 600;
+  }
+  

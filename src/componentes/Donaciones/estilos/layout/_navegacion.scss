@@ -1,0 +1,113 @@
+@use '/src//componentes/index/estilos/base/variables' as v;
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+
+    .logo {
+        display: flex;
+        margin: 10px;
+
+        .main-nav-logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 5px;
+        }
+
+        .main-nav-titulo {
+            font-size: 25px;
+            font-weight: bold;
+            color: v.$Text;
+        }
+    }
+
+    nav {
+        position: fixed;
+        top: -100vh;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        transition: 1s;
+        background-color: v.$bg-200;
+        letter-spacing: 2px;
+    }
+
+    
+
+    .nav-close-btn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+    }
+
+    a {
+        font-size: 1.5rem;
+        color: black;
+        text-decoration: none;
+    }
+
+    .nav-btn {
+        visibility: visible;
+        opacity: 1;
+        padding: 5px;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: v.$Text;
+        font-size: 1.8rem;
+    }
+
+    .nav-item {
+        background-color: v.$background;
+        border-radius: 10px;
+        padding: 5px;
+        color: v.$text-200;
+    }
+
+    .responsive_nav {
+        transform: translateY(100vh);
+    }
+    @media screen and (min-width: 1000px) {
+        nav {
+            position: static;
+            height: auto;
+            width: auto;
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            background-color: transparent;
+            letter-spacing: normal;
+            transition: none;
+        }
+
+        .nav-close-btn {
+            display: none;
+        }
+
+        .nav-btn {
+            display: none;
+        }
+
+        a {
+            font-size: 1rem;
+            color: black;
+            text-decoration: none;
+
+            &:hover{
+                color: v.$Primary;
+            }
+        }
+
+        
+    }
+}
+
+
+
+

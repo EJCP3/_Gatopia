@@ -1,0 +1,43 @@
+@use '../base/variables' as v;
+.main-servicio {
+    background-color: v.$bg-200;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+
+    &-titulo {
+        text-align: center;
+        font-size: 20px;
+        color: v.$Accent;
+    }
+
+    &-parrafo {
+        font-size: 10px;
+        width: 50ch;
+        margin: 10px;
+        letter-spacing: 1px;
+
+    }
+
+    &-contenido {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    &-subcontenido h3 {
+        font-size: 15px;
+        color: v.$text-200;
+        letter-spacing: 1.5px;
+    }
+
+    &-subcontenido img {
+        width: 90px;
+        height: 100px;
+    }
+}

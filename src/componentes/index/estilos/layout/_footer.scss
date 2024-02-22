@@ -1,0 +1,53 @@
+@use '../base/variables' as v;
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: v.$Text;
+    gap: 10px;
+
+    &-logo {
+        display: flex;
+    }
+
+    &-logo-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    &-logo-titulo {
+        font-size: 30px;
+        color: v.$Accent;
+        letter-spacing: 3px;
+    }
+
+    &-menu-item {
+        text-align: center;
+        font-size: 30px;
+        color: v.$primary-200;
+        text-transform: uppercase;
+        cursor: pointer;
+        list-style: none;
+        letter-spacing: 2px;
+    }
+
+    &-redes img {
+        width: 30px;
+        height: 30px;
+        margin: 10px;
+    }
+
+    &-redes {
+        display: flex;
+    }
+
+    &-login {
+        font-size: 15px;
+        border-radius: 10px;
+        padding: 5px;
+        border: 2px solid v.$Accent;
+        color: v.$primary-200;
+    }
+}
