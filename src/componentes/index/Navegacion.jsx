@@ -13,15 +13,16 @@ function Navegacion() {
 	return (
 		<div className="main-nav">
 			<div className="logo">
-			<img className="main-nav-logo" src="/src/assets/mobile/logo.svg"/>
-			<h3 className="main-nav-titulo" >gatopia</h3>
+			{/* <img className="main-nav-logo" src="/src/assets/mobile/logo.svg"/>
+			<h3 className="main-nav-titulo" >gatopia</h3> */}
+			<img src="/src/assets/mobile/logo-read.svg"/>
 			</div>
 			
 			<nav ref={navRef}>
 				<a href="/#">Home</a>
 				<a href="/#">Sobre nosotros</a>
 				<a href="/#">Contactanos</a>
-				<a className="nav-item" href="/#">Únete a la familia</a>
+				<a className="nav-item" href="/Home">Únete a la familia</a>
 				<button
 					className="nav-btn nav-close-btn"
 					onClick={showNavbar}>

@@ -11,7 +11,8 @@ const Header = () => {
         {"Gatopia dedicada organización dedicado al rescate y cuidado de gato sin hogar"}
         <span className="header-subtitulo-img" ></span>
       </h3>
-      <button className="header-btn">Conoce a nuestros bigotudo</button>
+       {/* <img className="header-imagenPortada" src="/src/assets/mobile/gatoheader.svg"/> */}
+      <a className="header-home-btn" href="/Adopciones">Conoce a nuestros bigotudo</a>
       <div className="header-img">
         <img  src="/src/assets/mobile/feedPet.svg"/> <img src="/src/assets/mobile//animals_cat.svg"/>
       </div>

@@ -13,15 +13,16 @@
 }
 
 .header-btn{
-    margin: 10px;
+    margin: 20px 0 20px 30px ;
     background-color: v.$background; 
     border-radius: 10px;
     border: none;
     font-family: v.$font-Khand;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 15px;
     letter-spacing: 1.5px;
     color: v.$Text;
+    width: 150px;
    
     &:hover{
         background-color: v.$primary-300;

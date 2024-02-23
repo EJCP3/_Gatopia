@@ -9,7 +9,7 @@
     margin: 10px;
 
     &-titulo {
-        font-size: 20px;
+        font-size: 50px;
         color:v.$Text;
         text-align: left;
         font-family: v.$font-Khand;
@@ -18,11 +18,11 @@
 
     &-subtitulo {
         font-family: v.$font-Switzer;
-        font-size: 12px;
+        font-size: 15px;
         color: v.$text-200;
     }
 
-    &-subtitulo-img {
+    .subtitulo-img {
         background-image: url('../assets/mobile/cat_carrier.svg');
         display: inline-block;
         width: 20px;
@@ -30,16 +30,19 @@
         margin: 0 0 0 10px;
     }
 
-    &-btn {
+    .header-home-btn {
         width: 200px;
-        font-family: v.$font-Switzer;
-        padding: 7px;
+        font-family: v.$font-Khand;
+        padding: 15px;
         border: none;
-        font-weight: 400;
+        font-weight: 700;
         box-shadow: 0px 4px 8px rgba(89.25, 72.69, 30.12, 0.16);
         border-radius: 10px;
-       
-        margin-top: 10px;
+        background-color: v.$primary-300;
+        text-decoration: none;
+        color: v.$Text;
+        text-wrap: balance;
+        letter-spacing: .3px;
     }
 
     &-img {

@@ -18,12 +18,12 @@ function Navegacion() {
 			</div>
 			
 			<nav ref={navRef}>
-				<a href="/#">Home</a>
-				<a href="/#">Adopciones</a>
-                <a href="/#">Donaciones </a>
-                <a href="/#">Historias</a>
+				<a href="/Home">Home</a>
+				<a href="/Adopciones">Adopciones</a>
+                <a href="/Donaciones">Donaciones </a>
+                <a href="/Historias">Historias</a>
 				<a className="nav-item" href="/#">Configuracion</a>
-                <a className="nav-item" href="/#">Cerrar Sesion</a>
+                <a className="nav-item" href="/">Cerrar Sesion</a>
 				<button
 					className="nav-btn nav-close-btn"
 					onClick={showNavbar}>
