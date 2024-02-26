@@ -4,7 +4,8 @@
 
 # Título del proyecto
 
-A brief description of what this project does and who it's for
+Una red social dedicada a una organización sin fines de lucro para gatos.
+
 
 ## Demo
 
@@ -12,10 +13,14 @@ muy pronto...
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](/public/Captura-pc.png)
 
 
 ## Construido con
+
+- React js
+
+- Scss
 
 - 
 
