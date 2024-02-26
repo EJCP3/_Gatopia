@@ -1,13 +1,12 @@
 
 import Navegacion from "../inicio/Navegacion"
-import '/src/componentes/inicio/estilos/layout/_navegacion.scss'
 
 
 const Header = () => {
   return (
-    <section>
+    <section className="historias-header">
         <Navegacion/>
-        <h3 className="header-titulo">
+        <h3 className="historias-header-titulo">
          Historias de los mas valientes
         </h3>
     </section>

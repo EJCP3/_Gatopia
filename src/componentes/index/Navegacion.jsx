@@ -3,6 +3,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 
 function Navegacion() {
 	const navRef = useRef();
+	
 
 	const showNavbar = () => {
 		navRef.current.classList.toggle(
@@ -10,30 +11,28 @@ function Navegacion() {
 		);
 	};
 
+
+
 	return (
-		<div className="main-nav">
-			<div className="logo">
-			{/* <img className="main-nav-logo" src="/src/assets/mobile/logo.svg"/>
-			<h3 className="main-nav-titulo" >gatopia</h3> */}
-			<img src="/src/assets/mobile/logo-read.svg"/>
-			</div>
-			
-			<nav ref={navRef}>
-				<a href="/#">Home</a>
-				<a href="/#">Sobre nosotros</a>
-				<a href="/#">Contactanos</a>
-				<a className="nav-item" href="/Home">Únete a la familia</a>
+		<div className="index-nav">
+			<img className="index-nav-logo" src="/src/assets/mobile/logo-read.svg"/>
+			<nav className="index-nav-contenedor" ref={navRef}>
+				<a className="index-nav-contenedor-link" href="/#" >index</a>
+				<a  className="index-nav-contenedor-link" href="/#">Sobre nosotros</a>
+				<a className="index-nav-contenedor-link" href="/#">Contactanos</a>
+				<a className="index-nav-contenedor-item" href="/Home">Únete a la familia</a>
 				<button
-					className="nav-btn nav-close-btn"
+					className="index-nav-contenedor-btn index-nav-contenedor-close-btn"
 					onClick={showNavbar}>
 					<FaTimes />
 				</button>
 			</nav>
 			<button
-				className="nav-btn"
+				className="index-nav-contenedor-btn"
 				onClick={showNavbar}>
 				<FaBars />
 			</button>
+			
 		</div>
 	);
 }

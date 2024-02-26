@@ -1,13 +1,14 @@
 import { Contacto } from "./Contacto"
 import { FooterPagina } from "./FooterPagina"
 import Header from "./Header"
-import { InfoPagina } from "./InfoPagina"
+import  InfoPagina  from "./InfoPagina"
 import RedSocial from "./RedSocial"
 import './estilos/styles.scss'
 
 
 
-const Inicio = () => {
+
+const Index = () => {
   return (
     < >
     <Header/>
@@ -19,4 +20,4 @@ const Inicio = () => {
   )
 }
 
-export default Inicio
+export default Index

@@ -2,9 +2,9 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import './App.scss'
 
-import Index from './componentes/index/Inicio'
+import Index from './componentes/index'
 import Home from './componentes/inicio/Home'
-import  Adopciones  from './componentes/Adopciones/Adopciones'
+import Adopciones  from './componentes/Adopciones/Adopciones'
 import Donaciones from './componentes/Donaciones/Donaciones'
 import Historias from './componentes/Historias/Historias'
 

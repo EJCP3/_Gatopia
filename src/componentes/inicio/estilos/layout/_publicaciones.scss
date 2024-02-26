@@ -1,7 +1,7 @@
 @use '/src//componentes/index/estilos/base/variables' as v;
 
 
-.publicaciones{
+.home-publicaciones{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,31 +9,78 @@
 
     
 
-    .publi-contenido{
+    &-contenido{
         background-color: v.$background;
         margin: 20px;
+       
 
-        .publi-contenido-img{
+        &-img{
             border-top-left-radius: 10px; border-top-right-radius: 10px;
         }
 
-        & div{
+        &-perfil{
             display: flex;
-            gap: 20px;
+            gap: 10px;
             margin: 10px;
+            align-items: center;
 
-            .publi-contenido-usuario{
+            &-foto{
+                width: 50px;
+                height: 30px;
+            }
+
+            &-usuario{
                 font-family: v.$font-Khand;
                 font-weight: 800;
             }
         }
 
-        .publi-contenido-parrafo{
+        &-parrafo{
             font-family: v.$font-Switzer;
             margin: 10px;
             font-size: 15px;
         }
     }
+}
+
+@media screen and (min-width: 1000px){
+
+    .home-publicaciones{
+        
+      
+
+           &-contenido{
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+           
+            
+            &-perfil{
+                
+    
+                &-foto{
+                    width: 60px;
+                    height:35px;
+                }
+    
+                &-usuario{
+                    font-family: v.$font-Khand;
+                    font-weight: 800;
+                    font-size: 25px;
+                }
+            }
+    
+            &-parrafo{
+                font-family: v.$font-Switzer;
+                margin: 10px;
+                font-size: 15px;
+            }
+
+           }
+
+    }
+
 }
 
 

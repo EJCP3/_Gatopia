@@ -2,45 +2,53 @@
 
 export const Contacto = () => {
   return (
-   <section className='contacto'>
-    <h2 className='contacto-titulo'>Quieres ser parte del la familia <span>gatunas</span> </h2>
-    <picture className='contacto-img'>
+   <section className='index-contacto'>
+    <h2 className='index-contacto-titulo'>Quieres ser parte del la familia <span>gatunas</span> </h2>
+    <picture className='index-contacto-img'>
         <img src='/src/assets/mobile/gatoContacto.svg'/>
         <img src='/src/assets/mobile/gatoContacto1.svg'/>
     </picture>
-     <article className='contacto-info' >
+    <div className="index-contacto-contenedor">
+     <article className='index-contacto-contenedor-info' >
         <h3>
         INFORMACION DE CONTACTO
         </h3>
-        <p className='contacto-info-correo'>Gatopia@gmail.com</p>
-        <p className='contacto-info-numero'>+1 826 024 2023</p>
+        <p className='index-contacto-contenedor-info-correo'>Gatopia@gmail.com</p>
+        <p className='index-contacto-contenedor-info-numero'>+1 826 024 2023</p>
+
      </article>
-     <article className='contacto-form'>
+     <article className='index-contacto-contenedor-form'>
         <h3>
         Envia un mensaje
         </h3>
-        <form className='contacto-form-formulario'>
-        <label className='contacto-form-titulo' htmlFor="nombre">Nombre</label>
+        <form className='index-contacto-contenedor-form-formulario'>
+        <label className='index-contacto-contenedor-form-titulo' htmlFor="nombre">Nombre</label>
         <input
-        className='contacto-form-input'
+        className='index-contacto-contenedor-form-input'
           type="text"
           id="nombre"
         />
-        <label className='contacto-form-titulo' htmlFor="email">Correo Electrónico</label>
+        <label className='index-contacto-contenedor-form-titulo' htmlFor="email">Correo Electrónico</label>
         <input
-        className='contacto-form-input'
+        className='index-contacto-contenedor-form-input'
           type="email"
           id="email"
         />
-        <label className='contacto-form-titulo' htmlFor="mensaje">Mensaje</label>
+        <label className='index-contacto-contenedor-form-titulo' htmlFor="mensaje">Mensaje</label>
         <textarea
-        className='contacto-form-textTarea'
+        className='index-contacto-contenedor-form-textTarea'
           id="mensaje"
         />
-      <button className='contacto-form-btn' type="submit">Enviar</button>
+      <button className='index-contacto-contenedor-form-btn' type="submit">Enviar</button>
     </form>
      </article>
-     <img className='contacto-foto' src='/src/assets/mobile/gatoContacto3.svg'/>
+     </div>
+     <picture className='index-contacto-img'>
+     <img  src='/src/assets/mobile/gatoContacto3.svg'/>
+     <img  src='/src/assets/pc/gatoContacto4.svg'/>
+     </picture>
+   
+     
    </section>
   )
 }

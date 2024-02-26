@@ -1,7 +1,7 @@
 @use '/src//componentes/index/estilos/base/variables' as v;
 
 
-.histo{
+.historias-main{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,24 +9,24 @@
 
     
 
-    .histo-contenido{
+    &-contenido{
         background-color: #FCEFEF;
         margin: 20px;
         max-width: 321px;
 
-        .histo-contenido-img{
+        &-img{
             border-top-left-radius: 10px; border-top-right-radius: 10px;
         }
 
 
-        .histo-contenido-titulo{
+        &-titulo{
             font-family: v.$font-Khand;
             margin: 10px;
             font-size: 20px;
             font-weight: 600;
         }
 
-        .histo-contenido-fecha{
+        &-fecha{
             font-family: v.$font-Switzer;
             margin: 10px;
             font-size: 12px;

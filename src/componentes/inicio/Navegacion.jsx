@@ -11,31 +11,37 @@ function Navegacion() {
 	};
 
 	return (
-		<div className="main-nav">
-			<div className="logo">
-			<img className="main-nav-logo" src="/src/assets/mobile/logo-red.svg"/>
-			<h3 className="main-nav-titulo">Usuario-1</h3>
+		<div className="home-nav">
+		<div className ="home-nav-logo">
+			<img className="home-nav-logo-img" src="/src/assets/mobile/logo-red.svg"/>
+			<h3 className="home-nav-logo-titulo">Usuario-1</h3>
+		</div>
+		
+		<nav className="home-nav-contenedor" ref={navRef}>
+			<div className="home-nav-contenedor-pagina">
+			<a className="home-nav-contenedor-pagina-link" href="/Home" >Home</a>
+			<a  className="home-nav-contenedor-pagina-link" href="/Adopciones">Adopciones</a>
+			<a className="home-nav-contenedor-pagina-link" href="/Donaciones">Donaciones</a>
+			<a className="home-nav-contenedor-pagina-link" href="/Historias">Historias</a>
+			</div>
+			<div className="home-nav-contenedor-confi">
+			<a className="home-nav-contenedor-confi-item" href="/#">Configuracion</a>
+			<a className="home-nav-contenedor-confi-item" href="/">Cerrar sesion</a>
 			</div>
 			
-			<nav ref={navRef}>
-				<a href="/Home">Home</a>
-				<a href="/Adopciones">Adopciones</a>
-                <a href="/Donaciones">Donaciones </a>
-                <a href="/Historias">Historias</a>
-				<a className="nav-item" href="/#">Configuracion</a>
-                <a className="nav-item" href="/">Cerrar Sesion</a>
-				<button
-					className="nav-btn nav-close-btn"
-					onClick={showNavbar}>
-					<FaTimes />
-				</button>
-			</nav>
 			<button
-				className="nav-btn"
+				className="home-nav-contenedor-btn home-nav-contenedor-close-btn"
 				onClick={showNavbar}>
-				<FaBars />
+				<FaTimes />
 			</button>
-		</div>
+		</nav>
+		<button
+			className="home-nav-contenedor-btn"
+			onClick={showNavbar}>
+			<FaBars />
+		</button>
+		
+	</div>
 	);
 }
 

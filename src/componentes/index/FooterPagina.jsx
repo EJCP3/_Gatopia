@@ -2,33 +2,35 @@
 
 export const FooterPagina = () => {
   return (
-    <section className="footer">
-    <div className="footer-logo">
-        <img className="footer-logo-img" src="/src/assets/mobile/logo.svg"/>
-        <h3 className="footer-logo-titulo">gatopia</h3>
-        </div>
-     <ul className="footer-menu">
-       <li className="footer-menu-item">
-       <a className="footer-menu-link">
-        Home
+    <section className="index-footer">
+      <img src="/src/assets/mobile/logo-read.svg"/>
+     <ul className="index-footer-menu">
+       <li className="index-footer-menu-item">
+       <a className="index-footer-menu-link">
+        index
        </a>
        </li> 
-       <li className="footer-menu-item">
-       <a className="footer-menu-link">
+       <li className="index-footer-menu-item">
+       <a className="index-footer-menu-link">
        Nosotros
        </a>
        </li> 
-       <li className="footer-menu-item">
-       <a className="footer-menu-link">
+       <li className="index-footer-menu-item">
+       <a className="index-footer-menu-link">
        Contactanos
        </a>
        </li> 
      </ul>
-     <picture className="footer-redes">
+     <picture className="index-footer-redes">
+        <a className="index-footer-redes-twitter">
         <img src="/src/assets/mobile/twitter.svg"/>
+        </a>
+        
+        <a className="index-footer-redes-twitter">
         <img src="/src/assets/mobile/instagram.svg"/>
+        </a>
      </picture>
-     <a className="footer-login">Únete a la familia</a>
+     <a className="index-footer-login">Únete a la familia</a>
 </section>
   )
 }

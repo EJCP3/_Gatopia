@@ -1,32 +1,26 @@
 @use '/src//componentes/index/estilos/base/variables' as v;
-
-// body{
-//     background-color: #FCEFEF;
-// }
-
-.main-nav {
+.home-nav {
     display: flex;
     justify-content: space-between;
-  
 
-    .logo {
+    &-logo {
         display: flex;
-        margin: 10px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
 
-        .main-nav-logo {
+        &-img{
             width: 40px;
-            height: 40px;
-            margin-right: 5px;
+            height: 60px;
         }
 
-        .main-nav-titulo {
+        &-titulo{
+            font-family: v.$font-Khand;
             font-size: 25px;
-            font-weight: bold;
-            color: v.$Text;
         }
     }
 
-    nav {
+    &-contenedor {
         position: fixed;
         top: -100vh;
         left: 0;
@@ -39,24 +33,60 @@
         gap: 1.5rem;
         transition: 1s;
         background-color: v.$bg-200;
-        letter-spacing: 2px;
+        letter-spacing: 2px;  
+
+    &-pagina{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        &-link {
+            font-size: 1.5rem;
+            color: black;
+            text-decoration: none;
+
+            &:hover {
+                color: v.$Primary;
+            }
+        
+    }
+    }
+
+    &-confi{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        &-item{
+            font-size: 25px;
+            text-decoration: none;
+            color: v.$Text;
+            font-family: v.$font-Khand;
+            font-weight: 600;
+            background-color: white;
+            padding: 7px;
+            
+            &:hover {
+                color: v.$Primary;
+            }
+        }
+
+        &-item:first-child{
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        &-item:last-child{
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        
+
     }
 
     
+   
 
-    .nav-close-btn {
-        position: absolute;
-        top: 2rem;
-        right: 2rem;
-    }
-
-    a {
-        font-size: 1.5rem;
-        color: black;
-        text-decoration: none;
-    }
-
-    .nav-btn {
+    &-btn{
         visibility: visible;
         opacity: 1;
         padding: 5px;
@@ -68,51 +98,90 @@
         font-size: 1.8rem;
     }
 
-    .nav-item {
-        background-color: v.$background;
-        border-radius: 10px;
-        padding: 5px;
-        color: v.$text-200;
+    &-close-btn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+    }
     }
 
-    .responsive_nav {
-        transform: translateY(100vh);
-    }
-    @media screen and (min-width: 1000px) {
-        nav {
-            position: static;
-            height: auto;
-            width: auto;
-            display: flex;
-            flex-direction: row;
-            gap: 1rem;
-            background-color: transparent;
-            letter-spacing: normal;
-            transition: none;
-        }
 
-        .nav-close-btn {
-            display: none;
-        }
+}
 
-        .nav-btn {
-            display: none;
-        }
-
-        a {
-            font-size: 1rem;
-            color: black;
-            text-decoration: none;
-
-            &:hover{
-                color: v.$Primary;
-            }
-        }
-
-        
-    }
+.responsive_nav {
+    transform: translateY(100vh);
 }
 
 
 
+@media screen and (min-width: 1000px){
 
+    .home-nav {
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+        background-color: #EDEDF3;
+
+
+    &-logo{
+        background-color: v.$primary-300;
+        height: 20vh;
+    }
+
+    &-contenedor{
+        position: static;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        background-color: transparent;
+        letter-spacing: normal;
+        transition: none;
+        padding: 10px;
+
+        &-pagina{
+            display: flex;
+            flex-direction: column;
+           text-align: center;
+
+            &-link{
+                font-size: 25px;
+                color: black;
+                text-decoration: none;
+    
+               
+            }
+    
+           
+        }
+
+        &-confi{
+
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            
+
+            &-item{
+                font-size: 25px;
+                font-family: v.$font-Khand;
+                background-color: white;
+                color: v.$Primary;
+                font-weight: 600;
+                letter-spacing: 1px;
+                text-decoration: none;
+    
+                &:hover{
+                    color: black;
+                }
+            }
+        }
+
+       
+
+        &-close-btn, &-btn{
+            display: none;
+        }
+    }
+}
+}

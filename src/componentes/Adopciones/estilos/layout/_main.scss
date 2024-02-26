@@ -1,36 +1,41 @@
 @use '/src//componentes/index/estilos/base/variables' as v;
 
 
+.adopcion-header{
 
+    &-titulo{
+        text-wrap: balance;
+        text-align: center;
+        font-size: 18px;
+        font-size: v.$font-Khand;
+        color: v.$Text;
+        font-weight: 600;
+    }
 
-.header-titulo{
-    text-wrap: balance;
-    text-align: center;
-    font-size: 18px;
-    font-size: v.$font-Khand;
-    color: v.$Text;
-    font-weight: 600;
-}
-
-.header-btn{
-    margin: 20px 0 20px 30px ;
-    background-color: v.$background; 
-    border-radius: 10px;
-    border: none;
-    font-family: v.$font-Khand;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 1.5px;
-    color: v.$Text;
-    width: 150px;
-   
-    &:hover{
-        background-color: v.$primary-300;
+    &-btn{
+        margin: 20px 0 20px 30px ;
+        background-color: v.$background; 
+        border-radius: 10px;
+        border: none;
+        font-family: v.$font-Khand;
+        font-weight: 600;
+        font-size: 15px;
+        letter-spacing: 1.5px;
+        color: v.$Text;
+        width: 150px;
+       
+        &:hover{
+            background-color: v.$primary-300;
+        }
     }
 }
 
 
-.contenedor-gato{
+
+
+
+
+.adopcion-contenedor-gato{
  display: flex;
  gap: 25px;
  flex-wrap: wrap; 
@@ -39,22 +44,59 @@
 
 }
 
-.card{
-    display: flex;
-    flex-direction: column;
-    width: 140px;
-    height: 170px;
-    background-color: v.$background;
 
-    
-     & div{
-            display: flex;
-            gap: 15px;
-            margin-left: 10px;
-            font-family: v.$font-Switzer;
-            font-size: 15px;
-            }
-    
+.adopcion-card{
 
-   
+        display: flex;
+        flex-direction: column;
+        width: 140px;
+        height: 170px;
+        background-color: v.$background;
+    
+        
+         &-sub{
+                display: flex;
+                gap: 15px;
+                margin-left: 10px;
+                font-family: v.$font-Switzer;
+                font-size: 15px;
+                }
+        
+    
+       
+    
 }
+
+@media screen and (min-width: 1000px){
+
+    .adopcion-header {
+       
+        &-titulo{
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        &-btn{
+            font-size: 20px;
+            width: fit-content;
+            padding: 10px;
+           
+            &:hover{
+                background-color: v.$primary-300;
+            }
+        }
+    }
+
+    .adopcion-contenedor-gato{
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap; 
+        justify-content:center;
+        align-items: center;
+        width: 80%;
+       
+       }
+
+
+    
+    }    

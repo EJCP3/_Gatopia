@@ -4,12 +4,16 @@ import Main from './Main'
 
 const Historias = () => {
   return (
-    <>
+    <section className='historias'>
     <Header/>
+    <section className='historias-contenedor'>
     <Main/>
     <Main/>
     <Main/>
-    </>
+    <Main/>
+    </section>
+   
+    </section>
   )
 }
 

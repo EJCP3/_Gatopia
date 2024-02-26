@@ -1,11 +1,11 @@
 
 
-export const InfoPagina = () => {
+ const InfoPagina = () => {
   return (
-    <section className='main' >
-      <article className="main-servicio">
-        <h2 className="main-servicio-titulo" >Brindamos una nueva vida a todos los necesitados</h2>
-        <p className="main-servicio-parrafo">
+    <section  className='index-main' >
+      <article className="index-main-servicio">
+        <h2 className="index-main-servicio-titulo" >Brindamos una nueva vida a todos los necesitados</h2>
+        <p className="index-main-servicio-parrafo">
           Gatopia es una organización dedicada al rescate y cuidado de gatos sin
           hogar, brindándoles una nueva vida. A través de convenios con negocios
           locales, ofrecen alimentación y establecen planes de adopción para
@@ -15,23 +15,23 @@ export const InfoPagina = () => {
           una adopción responsable mediante un riguroso proceso de selección y
           guía de cuidado para los nuevos dueños.
         </p>
-        <div className='main-servicio-contenido'>
-        <div className="main-servicio-subcontenido">
-          <h3>Alimentacion</h3>
+        <div className='index-main-servicio-contenido'>
+        <figure className="index-main-servicio-subcontenido">
+          <figcaption>Alimentacion</figcaption>
           <img src="/src/assets/mobile/gatoServicio.svg" />
-        </div>
-        <div className="main-servicio-subcontenido">
-          <h3>Planes de adopcion</h3>
+        </figure>
+        <figure className="index-main-servicio-subcontenido">
+          <figcaption>Planes de adopcion</figcaption>
           <img src="/src/assets/mobile/gatoServicio2.svg"/>
-        </div>
-        <div className="main-servicio-subcontenido">
-          <h3>Adopción responsable</h3>
+        </figure>
+        <figure className="index-main-servicio-subcontenido">
+          <figcaption>Adopción responsable</figcaption>
           <img src="/src/assets/mobile/gatoServicio3.svg"/>
-        </div>
+        </figure>
         </div>
       </article>
     </section>
   );
 };
 
-// export default Info;
+export default InfoPagina;

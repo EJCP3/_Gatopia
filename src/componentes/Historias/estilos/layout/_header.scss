@@ -1,6 +1,6 @@
 @use '/src//componentes/index/estilos/base/variables' as v;
 
-.header-titulo {
+.historias-header-titulo {
     text-wrap: balance;
     text-align: center;
     font-size: 25px;
@@ -9,3 +9,16 @@
     font-weight: 600;
   }
   
+  @media screen and (min-width: 1000px){
+    .historias-header-titulo{
+
+      text-wrap: balance;
+    text-align: left;
+    font-size: 25px;
+    font-size: v.$font-Khand;
+    color: v.$Text;
+    font-weight: 600;
+    padding: 10px;
+    margin-left: 170px;
+    }
+  }

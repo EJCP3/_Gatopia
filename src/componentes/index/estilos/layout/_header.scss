@@ -1,7 +1,6 @@
-@use '../base/variables' as v;
+@use "../base/variables" as v;
 
-.header {
-    height: 40vh;
+.index-header {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,11 +8,15 @@
     margin: 10px;
 
     &-titulo {
-        font-size: 50px;
-        color:v.$Text;
+        font-size: 30px;
+        color: v.$Text;
         text-align: left;
         font-family: v.$font-Khand;
         font-weight: 800;
+
+        &:hover {
+            color: v.$Primary;
+        }
     }
 
     &-subtitulo {
@@ -22,15 +25,19 @@
         color: v.$text-200;
     }
 
-    .subtitulo-img {
-        background-image: url('../assets/mobile/cat_carrier.svg');
+    &-subtitulo-img {
+        background-image: url("/src/assets/mobile/cat_carrier.svg");
         display: inline-block;
         width: 20px;
         height: 20px;
         margin: 0 0 0 10px;
     }
 
-    .header-home-btn {
+    &-imagenPortada {
+        display: none;
+    }
+
+    .index-header-btn {
         width: 200px;
         font-family: v.$font-Khand;
         padding: 15px;
@@ -42,12 +49,56 @@
         text-decoration: none;
         color: v.$Text;
         text-wrap: balance;
-        letter-spacing: .3px;
+        letter-spacing: 0.3px;
+
+        &:hover {
+            color: v.$Primary;
+        }
     }
 
     &-img {
         margin-top: 10px;
         display: flex;
         justify-content: space-between;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .index-header {
+        height: 60vh;
+
+        &-titulo,
+        &-subtitulo,
+        .index-header-btn {
+            margin-left: 10px;
+            
+        }
+
+        &-subtitulo {
+            text-wrap: balance;
+            width: 40ch;
+        }
+
+        &-imagenPortada {
+            position: absolute;
+            display: flex;
+            width: 339px;
+            height: 292px;
+            right: 0;
+            margin-bottom: 20px;
+        }
+
+        &-img img {
+            width: 100px;
+            position: relative;
+            top: 55px;
+        }
+
+        &-subtitulo-img {
+            background-image: url("/src/assets/pc/cat_carrier.svg");
+            width: 50px;
+            height: 50px;
+            position: absolute;
+        }
     }
 }

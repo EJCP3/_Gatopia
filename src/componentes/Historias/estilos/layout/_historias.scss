@@ -1,0 +1,17 @@
+@use '/src//componentes/index/estilos/base/variables' as v;
+
+
+.historias{
+    background-color: #FFFFFF;
+}
+
+
+@media screen and (min-width: 1000px){
+    .historias-contenedor{
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap; 
+        justify-content: center;
+        width: 80%;
+    }
+}

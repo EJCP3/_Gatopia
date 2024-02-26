@@ -1,18 +1,19 @@
-import Navegacion from "./Navegacion"
-
+import './estilos/layout/_home.scss'
 
 
 const Header = () => {
   return (
-    <section>
-        <Navegacion/>
-        <h2 className="header-titulo">Gato del dias</h2>
-        <picture className="header-img">
+    <section className="home-header" >
+       
+        <h2 className="home-header-titulo">Gato del dias</h2>
+        <picture className="home-header-img">
+            <img src="/src/assets/mobile/gatodias1.svg"/>
+            <img src="/src/assets/mobile/gatodias1.svg"/>
             <img src="/src/assets/mobile/gatodias1.svg"/>
             <img src="/src/assets/mobile/gatodias2.svg"/>
             <img src="/src/assets/mobile/gatodias3.svg"/>
         </picture>
-        <input className="publi-input" placeholder="¿En qué estás pensando?"/>
+        <input className="home-header-input" placeholder="¿En qué estás pensando?"/>
     </section>
   )
 }

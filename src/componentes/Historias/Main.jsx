@@ -2,12 +2,12 @@
 
 const Main = () => {
   return (
-    <section className="histo">
+    <section className="historias-main">
         
-    <article className="histo-contenido">
-        <img className="histo-contenido-img" src="/src/assets/mobile/Rectangle 69.svg"/>
-        <h3 className="histo-contenido-titulo">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
-        <h6 className="histo-contenido-fecha">Viernes 5/12/2024</h6>
+    <article className="historias-main-contenido">
+        <img className="historias-main-contenido-img" src="/src/assets/mobile/Rectangle 69.svg"/>
+        <h3 className="historias-main-contenido-titulo">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+        <h6 className="historias-main-contenido-fecha">Viernes 5/12/2024</h6>
     </article>
 </section>
   )

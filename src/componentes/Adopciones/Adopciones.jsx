@@ -4,15 +4,23 @@ import './estilos/styles.scss'
 
  const Adopciones = () => {
   return (
-   <>
+   <section className="adopcion">
     <Header/>
-    <section className="contenedor-gato">
+    <section className="adopcion-contenedor-gato">
+    <Main/>
+    <Main/>
+    <Main/>
+    <Main/>
+    <Main/>
+    <Main/>
+    <Main/>
+    <Main/>
     <Main/>
     <Main/>
     <Main/>
     <Main/>
     </section>
-   </>
+   </section>
   )
 }
 

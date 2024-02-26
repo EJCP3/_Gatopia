@@ -2,7 +2,7 @@
 
 const RedSocial = () => {
   return (
-    <section className="redSocial">
+    <section className="index-redSocial">
         <h2>
             Nuestras Red Social
         </h2>

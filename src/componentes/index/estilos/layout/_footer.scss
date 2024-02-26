@@ -1,6 +1,6 @@
 @use '../base/variables' as v;
 
-.footer {
+.index-footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,46 +8,92 @@
     background-color: v.$Text;
     gap: 10px;
 
-    &-logo {
-        display: flex;
-    }
-
-    &-logo-img {
-        width: 60px;
-        height: 60px;
-    }
-
-    &-logo-titulo {
-        font-size: 30px;
-        color: v.$Accent;
-        letter-spacing: 3px;
-    }
-
+    
     &-menu-item {
         text-align: center;
-        font-size: 30px;
+        font-size: 20px;
         color: v.$primary-200;
         text-transform: uppercase;
         cursor: pointer;
         list-style: none;
-        letter-spacing: 2px;
-    }
-
-    &-redes img {
-        width: 30px;
-        height: 30px;
-        margin: 10px;
+        letter-spacing: 1px;
+        font-family: v.$font-Switzer;
+        
+        &:hover{
+            color: v.$Primary;
+        }
+        
     }
 
     &-redes {
         display: flex;
+        gap: 20px;
+
+        &-twitter{
+            display: flex;
+            border: 1px solid gray;
+            padding: 10px;
+            border-radius: 20px;
+
+            &:hover{
+                transform: scale(1.00);
+                border: 1px solid white;
+            }
+            
+
+           & img {
+                width: 18px;
+                height: 18px;
+                
+        }
+        
+    }
+    }
+    &-login {
+        margin: 10px;
+        font-size: 15px;
+        border-radius: 5px;
+        padding: 5px;
+        border: none;
+        color: black;
+        background-color: v.$primary-200;
+        font-size: v.$font-Khand;
+        
+        &:hover{
+            filter: drop-shadow(0 0 100px v.$Primary);
+            
+        }
+}}
+
+@media screen and (min-width: 1000px){
+
+    .index-footer {
+        flex-direction: row;
+        justify-content: space-around;
+        height: 30vh;
+        
+        &-menu-item{
+            text-align:start;
+            gap: 10px;
+        }
+
+
+        &-login {
+            color: black;
+            background-color: v.$primary-200;
+            
+            &:hover{
+                filter: drop-shadow(0 0 100px v.$Primary);
+                background-color: black;
+                color: v.$background;
+                
+            }
     }
 
-    &-login {
-        font-size: 15px;
-        border-radius: 10px;
-        padding: 5px;
-        border: 2px solid v.$Accent;
-        color: v.$primary-200;
-    }
+   
 }
+}
+
+
+
+

@@ -1,14 +1,14 @@
 const Main = () => {
   return (
-      <article className="card">
+      <article className="adopcion-card">
         <img
-          className="card-img"
+          className="adopcion-card-img"
           src="/src/assets/mobile/gatoAdopcion.svg"
         />
-        <div>
-          <h3 className="card-nombre">jorge</h3>
+        <div className="adopcion-card-sub">
+          <h3 className="adopcion-card-sub-nombre">jorge</h3>
 
-          <h3 className="card-edad">6 meses</h3>
+          <h3 className="adopcion-card-sub-edad">6 meses</h3>
         </div>
       </article>
   );

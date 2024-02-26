@@ -1,42 +1,62 @@
 @use '/src//componentes/index/estilos/base/variables' as v;
 
-.form-pago{
-    background-color: v.$background;
-    height: 50vh;
 
-    .form-pago-paso{
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-        padding: 30px;
+.donaciones-pago{
+
+
+&-form-pago{
+  background-color: v.$background;
+  height: 50vh;
+
+  &-paso{
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 30px;
+  }
+
+  &-titulo{
+      text-wrap: balance;
+      text-align: center;
+      font-size: 25px;
+      font-size: v.$font-Khand;
+      color: black;
+     
+  }
+
+   &-metodo{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+    &-btn{
+      width: 149px; 
+      height: 27px;
+      background: rgba(255, 193,7, 0);
+       border-radius: 20px; 
+       border: 1px black solid;
+       margin: 10px;  
+
+       &:hover{
+        transform: scale(1.00);
+        border: 1px solid v.$Primary;
     }
-
-    .form-pago-titulo{
-        text-wrap: balance;
-        text-align: center;
-        font-size: 25px;
-        font-size: v.$font-Khand;
-        color: black;
-       
     }
+  }
 
-     .form-pago-metodo{
-        display: flex;
+}
+}
+
+@media screen and (min-width: 1000px){
+  .donaciones-pago{
+    display: flex;
+        align-items: center;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
-        
-      .btn{
-        width: 149px; 
-        height: 27px;
-        background: rgba(255, 193,7, 0);
-         border-radius: 20px; 
-         border: 1px black solid;
-         margin: 10px;  
-      }
+
+    &-form-pago{
+      width: 700px;
     }
-
-
-
-
+  }
 }

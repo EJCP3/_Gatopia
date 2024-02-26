@@ -1,57 +1,101 @@
 @use '/src//componentes/index/estilos/base/variables' as v;
 
-.footer-info{
-    margin-top: 20px;
-    background-color: v.$background;
-    display: flex;
-    text-align: center;
-    flex-direction: column;
 
-    .footer-info-img{
+.donaciones-footer{
+
+    &-info{
+        margin-top: 20px;
+        background-color: v.$background;
         display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-
-        img{
-            width: 46px; 
-            height: auto; 
+        text-align: center;
+        flex-direction: column;
+    
+        &-img{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+    
+           & img{
+                width: px; 
+                height: auto; 
+            }
         }
-    }
-
-    .footer-info-titulo{
-        font-size: 25px;
-        font-size: v.$font-Khand;
-        color: v.$Text;
-        font-weight: 600;
-    }
-
-    .footer-info-cuenta, .footer-info-paypal{
-        font-size: 25px;
-        font-size: v.$font-Khand;
-        color: v.$Text;
-        font-weight: 600;
-
-        & span{
-            font-size: 20px;
-            font-weight: 400;
+    
+        &-titulo{
+            font-size: 25px;
+            font-size: v.$font-Khand;
+            color: v.$Text;
+            font-weight: 600;
         }
-    }
-
-   
-
+    
+        &-cuenta,  &-paypal{
+            font-size: 25px;
+            font-size: v.$font-Khand;
+            color: v.$Text;
+            font-weight: 600;
+    
+            & span{
+                font-size: 20px;
+                font-weight: 400;
+            }
+        }
 
 }
 
-.footer-masInfo{
+&-masInfo{
     text-align: center;
     text-wrap: balance;
     font-size: 20px;
     font-family: v.$font-Switzer;
     font-weight: 400;
-    color: v.$text-200;
+    color: v.$Primary;
 }
 
-.footer-img{
+&-img{
     display: flex;
     justify-content: space-between;
 }
+
+}
+
+@media screen and (min-width: 1000px){
+
+    .donaciones-footer{
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        &-info{
+            width: 700px;
+        
+        
+            &-img{
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                
+                & img{
+              width: 60px;
+            }
+              
+            } 
+        
+           
+    
+    }
+    
+    &-masInfo{
+        font-size: 15px;
+    }
+    
+    &-img{
+        display: none;
+        
+    }
+    
+    }
+
+}
+
