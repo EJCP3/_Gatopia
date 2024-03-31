@@ -2,6 +2,8 @@ import './estilos/layout/_home.scss'
 
 
 const Header = () => {
+
+  
   return (
     <section className="home-header" >
        

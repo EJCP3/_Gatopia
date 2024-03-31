@@ -1,0 +1,102 @@
+@use "../estilos//base//variables" as v;
+
+.index-login{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.779);
+    height: 60%;
+    padding-top: 10px;
+
+
+  & h3{
+    font-size: 30px;
+    font-family: v.$font-Khand;
+  }
+
+  &-contenedor-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+    &-input{
+        background-color: v.$background;
+        width: 200px;
+        border-radius: 10px;
+        border: none;
+        padding: 6px;
+        
+
+        &::placeholder{
+            color: rgb(0, 0, 0);
+            font-size: 12px;
+            font-weight: 200;
+        }
+    }
+
+    &-btn{
+        background-color: v.$Primary;
+        border: none;
+        width: 150px;
+        padding: 6px;
+        border-radius: 10px;
+        font-family: v.$font-Khand;
+        color: white;
+        letter-spacing: 2px;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    &-contImg{
+     background-color: v.$background;
+      color: rgb(0, 0, 0);
+      font-size: 15px;
+      font-weight: 200;
+      width: 30ch;
+
+    }
+
+    &-img {
+     
+  
+ 
+  
+      clip-path: circle(35% at 50% 50%);
+      max-width: 35%;
+      height: auto;
+      
+    }
+  }
+
+
+}
+
+@media screen and (min-width: 1000px) {
+
+  .index-login{
+    height: 100%;
+    width: 50%;
+    justify-content: center;
+
+    &-contenedor-form{
+    
+  
+      &-input{
+          background-color: v.$background;
+          width: 250px;
+          border-radius: 10px;
+          border: none;
+          padding: 10px;
+        }
+          &-btn{
+            width: 150px;
+            padding: 6px;
+        }
+  
+      
+}
+}
+
+}

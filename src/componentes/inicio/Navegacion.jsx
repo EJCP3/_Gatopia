@@ -1,48 +1,100 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { supabase } from "../../supabase/client";
+import { useNavigate, Link } from "react-router-dom";
 
 function Navegacion() {
-	const navRef = useRef();
+  const navigate = useNavigate();
+  const navRef = useRef();
 
-	const showNavbar = () => {
-		navRef.current.classList.toggle(
-			"responsive_nav"
-		);
-	};
+  const [perfil, setPerfil] = useState({nombreUsuario: '', fotoPerfil: ''})
 
-	return (
-		<div className="home-nav">
-		<div className ="home-nav-logo">
-			<img className="home-nav-logo-img" src="/src/assets/mobile/logo-red.svg"/>
-			<h3 className="home-nav-logo-titulo">Usuario-1</h3>
-		</div>
-		
-		<nav className="home-nav-contenedor" ref={navRef}>
-			<div className="home-nav-contenedor-pagina">
-			<a className="home-nav-contenedor-pagina-link" href="/Home" >Home</a>
-			<a  className="home-nav-contenedor-pagina-link" href="/Adopciones">Adopciones</a>
-			<a className="home-nav-contenedor-pagina-link" href="/Donaciones">Donaciones</a>
-			<a className="home-nav-contenedor-pagina-link" href="/Historias">Historias</a>
-			</div>
-			<div className="home-nav-contenedor-confi">
-			<a className="home-nav-contenedor-confi-item" href="/#">Configuracion</a>
-			<a className="home-nav-contenedor-confi-item" href="/">Cerrar sesion</a>
-			</div>
-			
-			<button
-				className="home-nav-contenedor-btn home-nav-contenedor-close-btn"
-				onClick={showNavbar}>
-				<FaTimes />
-			</button>
-		</nav>
-		<button
-			className="home-nav-contenedor-btn"
-			onClick={showNavbar}>
-			<FaBars />
-		</button>
-		
-	</div>
-	);
+  async function signOut() {
+    const { error } = await supabase.auth.signOut()
+  }
+
+  const showNavbar = () => {
+    navRef.current.classList.toggle("responsive_nav");
+  };
+
+
+	useEffect(() => {
+		const fetchPerfil = async () => {
+			try{
+				const user = await supabase.auth.getUser();
+				const { error, data} = await supabase.from("usuario")
+        .select("nombre_usuario, foto_perfil")
+        .eq("userID", user.data.user.id);
+
+				console.log(data)
+        
+        setPerfil({
+          nombreUsuario: data[0].nombre_usuario,
+          fotoPerfil: data[0].foto_perfil
+        })
+
+				if(error) {
+					throw error;
+				}
+
+			}catch(error) {
+				alert(error.error_description || error.message);
+		}
+		};
+		fetchPerfil();
+	}, []); 
+
+
+
+
+
+  return (
+    <div className="home-nav">
+      <div className="home-nav-logo">
+        <img
+          className="home-nav-logo-img"
+          src={perfil.fotoPerfil}
+        />
+        <h3 className="home-nav-logo-titulo">{perfil.nombreUsuario}</h3>
+      </div>
+
+      <nav className="home-nav-contenedor" ref={navRef}>
+        <div className="home-nav-contenedor-pagina">
+          <a className="home-nav-contenedor-pagina-link" href="/Home" >
+            Home
+          </a>
+          <a className="home-nav-contenedor-pagina-link" href="/Adopciones">
+            Adopciones
+          </a>
+          <Link to="/Adopciones">Adopciones</Link>
+          <a className="home-nav-contenedor-pagina-link" href="/Donaciones">
+            Donaciones
+          </a>
+          <a  className="home-nav-contenedor-pagina-link" href="/Historias">
+            Historias
+          </a>
+        </div>
+        <div className="home-nav-contenedor-confi">
+          <a className="home-nav-contenedor-confi-item" href="/#">
+            Configuracion
+          </a>
+          <a className="home-nav-contenedor-confi-item" onClick={signOut}>
+            Cerrar sesion
+          </a>
+        </div>
+
+        <button
+          className="home-nav-contenedor-btn home-nav-contenedor-close-btn"
+          onClick={showNavbar}
+        >
+          <FaTimes />
+        </button>
+      </nav>
+      <button className="home-nav-contenedor-btn" onClick={showNavbar}>
+        <FaBars />
+      </button>
+    </div>
+  );
 }
 
-export default Navegacion
+export default Navegacion;

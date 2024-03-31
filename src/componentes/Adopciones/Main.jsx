@@ -6,9 +6,9 @@ const Main = () => {
           src="/src/assets/mobile/gatoAdopcion.svg"
         />
         <div className="adopcion-card-sub">
-          <h3 className="adopcion-card-sub-nombre">jorge</h3>
+          <h3 className="adopcion-card-sub-nombre">Nombre</h3>
 
-          <h3 className="adopcion-card-sub-edad">6 meses</h3>
+          <h3 className="adopcion-card-sub-edad">Edad</h3>
         </div>
       </article>
   );

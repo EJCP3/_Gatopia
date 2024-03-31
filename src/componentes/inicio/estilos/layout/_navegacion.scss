@@ -10,8 +10,9 @@
         gap: 10px;
 
         &-img{
-            width: 40px;
+            width: 6 0px;
             height: 60px;
+            clip-path: circle(35% at 50% 50%);
         }
 
         &-titulo{
@@ -121,10 +122,10 @@
         flex-direction: column;
         width: 250px;
         background-color: #EDEDF3;
-
+        
 
     &-logo{
-        background-color: v.$primary-300;
+        background-color: #EDEDF3;
         height: 20vh;
     }
 
