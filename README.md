@@ -22,7 +22,7 @@ muy pronto...
 
 - Scss
 
-- 
+- Supabase
 
 - 
 
