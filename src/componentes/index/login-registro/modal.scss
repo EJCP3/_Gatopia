@@ -1,15 +1,6 @@
 @use "../estilos//base//variables" as v;
 
-.clipping-container {
-    position: relative;
-    border: 1px solid #aaa;
-    margin-bottom: 12px;
-    padding: 12px;
-    width: 250px;
-    height: 80px;
-    overflow: hidden;
-   
-  }
+
   
   .modal {
     display: flex;

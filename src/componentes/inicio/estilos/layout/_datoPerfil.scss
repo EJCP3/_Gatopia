@@ -1,25 +1,43 @@
-@use "../estilos//base//variables" as v;
+@use "/src/componentes/index/estilos/base/variables" as v;
 
-.index-login{
+
+  .formPerfil {
     display: flex;
+    justify-content: space-evenly;
     flex-direction: column;
-    gap: 30px;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.779);
-    height: 60%;
-    padding-top: 10px;
-
-
-  & h3{
-    font-size: 30px;
+    box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
+    background-color: #FBFBFB;
+    border-radius: 12px;
+    position:  fixed;
+    width: 90%;
+    top: 70px;
+    left: calc(50% - 45%);
+    bottom: 70px;
+    height: 100%;
+   
+    &-contenedor{
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.779);
+      height: 80%;
+      padding-top: 10px;
+      overflow:scroll;
+        
+  &-formPerfil-contenedor-titulo{
+    font-size: 15px;
     font-family: v.$font-Khand;
   }
 
-  &-contenedor-form{
+  &-form{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
+
+
+    
 
     &-input{
         background-color: v.$background;
@@ -50,41 +68,52 @@
     }
 
     &-contImg{
-     background-color: v.$background;
+      background-color: v.$primary-300;
       color: rgb(0, 0, 0);
       font-size: 15px;
       font-weight: 200;
       width: 30ch;
-
     }
 
     &-img {
       clip-path: circle(35% at 50% 50%);
       max-width: 35%;
       height: auto;
+      
     }
 
-    &-img-portada{
-      clip-path: none;
-      max-width: 60%;
-    }
+
   }
+    }
 
-
-}
-
-@media screen and (min-width: 1000px) {
-
-  .index-login{
-    height: 100%;
-    width: 50%;
-    justify-content: center;
-    
-
-    &-contenedor-form{
-    
+    .textTarea{
+      width: '100%';
+      padding: '10px';
+      font-size: '16px';
+      border: '1px solid #ccc';
+      border-radius: '4px';
+      resize: 'none',
+    }
   
-      &-input{
+
+  
+   }
+
+  @media screen and (min-width: 1000px) {
+
+    .formPerfil{
+      width: 60%;
+      flex-direction: column;
+      left: calc(50% - 30%);
+
+      
+      &-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+
+        &-input{
           background-color: v.$background;
           width: 250px;
           border-radius: 10px;
@@ -95,9 +124,11 @@
             width: 150px;
             padding: 6px;
         }
-  
-      
-}
-}
 
-}
+      }
+    }
+
+
+    
+
+  }

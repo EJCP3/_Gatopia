@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Modal from "./login-registro/BtnModal";
 import { supabase } from "../../supabase/client";
+import ModalPerfil from "../inicio/perfil/ModalPerfil";
 
 
 const  Navegacion = () => {
@@ -12,6 +13,7 @@ const  Navegacion = () => {
 			"responsive_nav"
 		);
 	};
+
 
 
 console.log("sadasdu")

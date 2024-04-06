@@ -14,74 +14,9 @@ const Registro = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
 
-  // const [file, setFile] = useState([]);
-    // const [usuario, setUsuario] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [contraseña, setContraseña] = useState("");
-   
-
-
-  
-  // const onDrop = useCallback(acceptedFiles => {
-  //   console.log({acceptedFiles})
-  // }, [])
-  // const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({
-  //   accept: {
-  //     'image/jpeg': [],
-  //     'image/png': []
-  //   },
-  //   onDrop})
-
- 
-
-    // const data = {
-    //   usuario: usuario,
-    //   correo: email,
-    //   contraseña: contraseña,
-    //   fotoPerfil: acceptedFiles[0],
-    // };
-    // const handleSubmit =  async (e) => {
-    //   e.preventDefault();
-
-    //   try{
-    //     await supabase.auth.signUp({
-    //       email: email, 
-    //       password: contraseña,
-    //   });
-
-    //   await supabase.auth.from('usuario').insert({
-    //     nombre_usuario: usuario,
-    //     foto_perfil: acceptedFiles[0],
-    //   })
-
-      
-    // } catch (error){
-    //     console.log(error)
-    //   }
-
-    // }
-   
-    
-
     const onSubmit = async (data) => {
 
-  //     const {error } = await supabase.storage
-  //     .from('foto_perfil')
-  //     .upload(`${acceptedFiles[0].name}`, acceptedFiles[0]);
-
-  //   if (error) {
-  //     console.error('Error al subir la imagen:', error.message);
-  //     return;
-  //   }
-     
-  //  const fotoURL  = supabase.storage.from('foto_perfil').getPublicUrl(`${acceptedFiles[0].name}`)
-
-  //  if (fotoURL.error) {
-  //   console.error('Error al obtener el enlace público de la imagen:', fotoURL.error.message);
-  //   return;
-  // }
-  
-  // console.log('Enlace público de la imagen:', fotoURL.data.publicUrl);
+    
      
   //     console.log("holaaa")
       try {

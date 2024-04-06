@@ -1,0 +1,39 @@
+@use "/src/componentes/index/estilos/base/variables" as v;
+
+.modalpublic{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
+    background-color: #FBFBFB;
+    border-radius: 12px;
+    position:  fixed;
+    width: 90%;
+    top: 70px;
+    left: calc(50% - 45%);
+    bottom: 70px;
+    height: 100%;
+}
+
+@media screen and (min-width: 1000px) {
+
+    .modalpublic{
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
+        background-color: #FBFBFB;
+        border-radius: 12px;
+        position:  fixed;
+        width:50%;
+        top: 70px;
+        left: calc(50% - 30%);
+        bottom: 70px;
+        height: 50%;
+    }
+    
+
+
+    
+
+  }

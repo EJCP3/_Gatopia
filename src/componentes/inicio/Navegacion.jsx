@@ -2,8 +2,16 @@ import { useRef, useEffect, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { supabase } from "../../supabase/client";
 import { useNavigate, Link } from "react-router-dom";
+import ModalPerfil from "./perfil/ModalPerfil";
+import { createPortal } from 'react-dom';
+
+
+
+
+
 
 function Navegacion() {
+
   const navigate = useNavigate();
   const navRef = useRef();
 
@@ -16,6 +24,9 @@ function Navegacion() {
   const showNavbar = () => {
     navRef.current.classList.toggle("responsive_nav");
   };
+
+  
+ 
 
 
 	useEffect(() => {
@@ -43,20 +54,43 @@ function Navegacion() {
 		};
 		fetchPerfil();
 	}, []); 
+  
 
+  const [showModal, setShowModal] = useState(false);
 
+  const handleOpenModal = (e) => {
+    e.stopPropagation();
+    setShowModal(true);
+  };
 
+  const handleCloseModal = (e) => {
+    e.stopPropagation();
+    setShowModal(false);
+  };
 
 
   return (
     <div className="home-nav">
-      <div className="home-nav-logo">
+     <div className="home-nav-logo" onClick={handleOpenModal} >
+      <img 
+        className="home-nav-logo-img"
+        src={perfil.fotoPerfil}
+        alt="Imagen de perfil de usuario"
+      />
+      <h3 className="home-nav-logo-titulo">{perfil.nombreUsuario}</h3>
+      {showModal && createPortal(
+        <ModalPerfil onClose={handleCloseModal} />,
+        document.body
+      )}
+    </div>
+   
+      {/* <div className="home-nav-logo" onClick={handleOpenModal}>
         <img
           className="home-nav-logo-img"
           src={perfil.fotoPerfil}
         />
         <h3 className="home-nav-logo-titulo">{perfil.nombreUsuario}</h3>
-      </div>
+      </div> */}
 
       <nav className="home-nav-contenedor" ref={navRef}>
         <div className="home-nav-contenedor-pagina">
@@ -76,7 +110,7 @@ function Navegacion() {
         </div>
         <div className="home-nav-contenedor-confi">
           <a className="home-nav-contenedor-confi-item" href="/#">
-            Configuracion
+           si
           </a>
           <a className="home-nav-contenedor-confi-item" onClick={signOut}>
             Cerrar sesion

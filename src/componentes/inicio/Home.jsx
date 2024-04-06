@@ -6,47 +6,61 @@ import Navegacion from './Navegacion'
 import { supabase } from "../../supabase/client";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DatoPerfil from './DatoPerfil';
+
 
 const Home =  () => {
   const navigate = useNavigate();
-  useEffect(() => {
+  const [perfilCompleto, setPerfilCompleto] = useState(false); // Estado para almacenar si el perfil está completo
+
+  useEffect(() => { // Efecto secundario para verificar el usuario y obtener datos del perfil
+    // Obtiene el usuario actual
+
     if (!supabase.auth.getUser()) {
       navigate("/");
     }
-  }, [navigate]);
 
+    const checkProfileCompletion = async () => {
+      const user = await supabase.auth.getUser();
 
+      const { data, error } = await supabase
+        .from('usuario')
+        .select('*')
+        .eq('userID', user.data.user.id)
+        .single();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const user = await supabase.auth.getUser();
-       
-        console.log(user.data.user.id)
-
-      } catch (error) {
-        console.error('Error fetching user:', error.message);
+      if (error) {
+        console.log(data)
+        console.error('Error fetching profile data:', error.message);
+      } else {
+        setPerfilCompleto(!!data && hasRequiredFields(data));
       }
     };
 
-    fetchUser();
-  }, []);
-  
+    checkProfileCompletion();
+  }, []); // Empty dependency array to fetch data only once on mount
 
-  console.log("si")
+  const hasRequiredFields = (data) => {
+    // Replace with actual conditions for a complete profile
+    return data.nombre_usuario && data.provincia && data.descripción;
+  };
 
 
   return (
     <section className='home'>
-        <Navegacion/>
-        <Header/>
+    {perfilCompleto ? ( // Reemplaza con tu condición de DatoPerfil
+      <>
+        <Navegacion />
+        <Header />
         <section className='home-publicacion'>
-        <Publicaciones/>
-        <Publicaciones/>
+          <Publicaciones />
+         
         </section>
-        
-
-    </section>
+      </>
+    ) : (
+      <DatoPerfil  onProfileCompletion={setPerfilCompleto}  /> // Renderizar DatoPerfil si el perfil está incompleto
+    )}
+  </section>
   )
 }
 
