@@ -24,7 +24,7 @@ muy pronto...
 
 - Supabase
 
-- 
+- React suite
 
 
 ## Funcionalidades

@@ -1,16 +1,48 @@
 import { useRef, useEffect, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { supabase } from "../../supabase/client";
-import { useNavigate, Link } from "react-router-dom";
-import ModalPerfil from "./perfil/ModalPerfil";
-import { createPortal } from 'react-dom';
+import { useNavigate } from "react-router-dom";
+import modalPerfil from "./perfil/ModalPerfil";
+import Perfil from "./perfil/Perfil";
 
+
+import "rsuite/dist/rsuite.min.css";
+import ModalPerfil from "./perfil/ModalPerfil";
 
 
 
 
 
 function Navegacion() {
+
+  const [open, setOpen] = useState(false);
+  const [size, setSize] = useState();
+  const handleOpen = (e) => {
+    e.stopPropagation();
+    setSize("sm");
+    setOpen(true)
+  };
+  const handleClose = (e) => {
+    e.stopPropagation()
+    setOpen(false);
+   
+
+  };
+
+  const [openPerfil, setOpenPerfil] = useState(false);
+  const [sizePerfil, setSizePerfil] = useState();
+  const handleOpenPerfil = (e) => {
+    e.stopPropagation();
+    setSizePerfil("sm");
+    setOpenPerfil(true)
+  };
+  const handleClosePerfil = (e) => {
+    e.stopPropagation()
+    setOpenPerfil(false);
+   
+
+  };
+
 
   const navigate = useNavigate();
   const navRef = useRef();
@@ -56,32 +88,33 @@ function Navegacion() {
 	}, []); 
   
 
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
-  const handleOpenModal = (e) => {
-    e.stopPropagation();
-    setShowModal(true);
-  };
+  // const handleOpenModal = (e) => {
+  //   e.stopPropagation();
+  //   setShowModal(true);
+  // };
 
-  const handleCloseModal = (e) => {
-    e.stopPropagation();
-    setShowModal(false);
-  };
+  // const handleCloseModal = (e) => {
+  //   e.stopPropagation();
+  //   setShowModal(false);
+  // };
 
 
   return (
     <div className="home-nav">
-     <div className="home-nav-logo" onClick={handleOpenModal} >
+     <div className="home-nav-logo" size="sm" onClick={(e) => handleOpen(e)} >
       <img 
         className="home-nav-logo-img"
         src={perfil.fotoPerfil}
         alt="Imagen de perfil de usuario"
       />
       <h3 className="home-nav-logo-titulo">{perfil.nombreUsuario}</h3>
-      {showModal && createPortal(
-        <ModalPerfil onClose={handleCloseModal} />,
+      <Perfil size={size} open={open} onClose={handleClose}/>
+      {/* {open && createPortal(
+        <perfil onClose={handleCloseModal} />,
         document.body
-      )}
+      )} */}
     </div>
    
       {/* <div className="home-nav-logo" onClick={handleOpenModal}>
@@ -109,9 +142,10 @@ function Navegacion() {
           </a>
         </div>
         <div className="home-nav-contenedor-confi">
-          <a className="home-nav-contenedor-confi-item" href="/#">
+          <a size="sm" onClick={(e) => handleOpenPerfil(e)} className="home-nav-contenedor-confi-item" >
           Perfil
           </a>
+          <ModalPerfil size={sizePerfil} open={openPerfil} onClose={handleClosePerfil}/>
           <a className="home-nav-contenedor-confi-item" onClick={signOut}>
             Cerrar sesion
           </a>

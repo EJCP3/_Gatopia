@@ -1,9 +1,17 @@
 import { supabase } from "../../../supabase/client"
 import { useEffect, useState } from 'react'
 import './modalPerfil.scss'
+import { Modal, Button, Placeholder } from 'rsuite';
 
-const Perfil = () => {
 
+const Perfil = ({ size, open, onClose }) => {
+
+//   const [open, setOpen] = useState(false);
+// const [size, setSize] = useState();
+// const handleOpen = value => {
+//   setSize(value);
+//   setOpen(true);
+// };
     const [perfil, setPerfil] = useState({nombreUsuario: '', fotoPerfil: '', portada: '', provincia: '', descripcion: '', fecha_creacion: '' })
 
 
@@ -44,7 +52,12 @@ const Perfil = () => {
   return (
   
         <section className="modalP-perfil">
-            <article className="modalP-perfil-contenedor">
+           
+            <Modal size={size} open={open} onClose={onClose}>
+        <Modal.Header>
+        </Modal.Header>
+        <Modal.Body>
+        <article className="modalP-perfil-contenedor">
                 <img className='modalP-perfil-contenedor-portada' src={perfil.portada}/>
                 <div className='modalP-perfil-contenedor-info-perfil'>
                     <img className='modalP-perfil-contenedor-info-perfil_logo' src={perfil.fotoPerfil}/>
@@ -63,6 +76,9 @@ const Perfil = () => {
                     
                 </div>
             </article>
+        </Modal.Body>
+        
+      </Modal>
         </section>
   )
 }

@@ -13,9 +13,8 @@ import { supabase } from "../../supabase/client"
 
 
 const Index = () => {
-  const navigate = useNavigate();
 
-
+ 
   return (
     < >
     <Header/>

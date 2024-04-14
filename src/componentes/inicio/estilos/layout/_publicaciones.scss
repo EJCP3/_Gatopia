@@ -42,17 +42,32 @@
             gap: 10px;
             margin: 10px;
             align-items: center;
-
-            &-img{
-                clip-path: circle(35% at 50% 50%);
-                max-width: 15%;
-                height: auto;
+            justify-content: space-between;
+        
+            &-cont{
+                display: flex;
+                align-items: center;
+                
+                
+                &-img{
+                    clip-path: circle(35% at 50% 50%);
+                    max-width: 20%;
+                    height: auto;
+                }
+    
+                &-usuario{
+                    font-family: v.$font-Khand;
+                    font-weight: 800;
+                }
             }
+           &-submenu{
+            z-index: 5;
 
-            &-usuario{
-                font-family: v.$font-Khand;
-                font-weight: 800;
+            :hover{
+                color: black;
             }
+            
+           }
         }
 
         &-parrafo{

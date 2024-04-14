@@ -11,18 +11,19 @@ import DatoPerfil from './DatoPerfil';
 
 const Home =  () => {
   const navigate = useNavigate();
-  const [perfilCompleto, setPerfilCompleto] = useState(false); // Estado para almacenar si el perfil está completo
+  const [perfilCompleto, setPerfilCompleto] = useState(true); // Estado para almacenar si el perfil está completo
 
   useEffect(() => { // Efecto secundario para verificar el usuario y obtener datos del perfil
     // Obtiene el usuario actual
+    const checkProfileCompletion = async () => {
+      const user = await supabase.auth.getUser();
 
     if (!supabase.auth.getUser()) {
       navigate("/");
     }
+    
 
-    const checkProfileCompletion = async () => {
-      const user = await supabase.auth.getUser();
-
+    
       const { data, error } = await supabase
         .from('usuario')
         .select('*')
@@ -38,12 +39,16 @@ const Home =  () => {
     };
 
     checkProfileCompletion();
-  }, []); // Empty dependency array to fetch data only once on mount
+  }, [navigate]); // Empty dependency array to fetch data only once on mount
 
   const hasRequiredFields = (data) => {
     // Replace with actual conditions for a complete profile
     return data.nombre_usuario && data.provincia && data.descripción;
   };
+
+  if (!perfilCompleto) {
+    navigate('/Home'); // Redirigir si el perfil no está completo
+  }
 
 
   return (

@@ -15,7 +15,7 @@ const Registro = () => {
 
 
     const onSubmit = async (data) => {
-
+      
     
      
   //     console.log("holaaa")

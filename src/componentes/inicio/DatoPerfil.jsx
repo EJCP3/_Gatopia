@@ -3,15 +3,21 @@ import { supabase } from "../../supabase/client";
 import "./estilos/layout/_datoPerfil.scss";
 import { useForm } from "react-hook-form";
 import ImageUpload from "./imagen";
+import { Modal, Toggle, Button, ButtonToolbar, Placeholder } from 'rsuite';
+import { Toaster, toast } from 'sonner';
 
-const DatoPerfil = ({ onProfileCompletion, hasRequiredFields }) => {
+
+const DatoPerfil = ({ onProfileCompletion, hasRequiredFields, size, open, onClose, editar }) => {
   const [profileData, setProfileData] = useState(null); // Store fetched profile data
   const [isProfileComplete, setIsProfileComplete] = useState(false);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [profileImage, setProfileImage] = useState([]);
   const [coverImage, setCoverImage] = useState([]);
-  
+  const [isEditing, setIsEditing] = useState(editar);
+
+  console.log(isEditing)
+
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -109,38 +115,59 @@ const DatoPerfil = ({ onProfileCompletion, hasRequiredFields }) => {
 
   console.log("si", fotoURL.data.publicUrl)
   console.log("no", PortadaURL.data.publicUrl)
-  const user = supabase.auth.getUser();
+  const user = await supabase.auth.getUser();
 
-  try{
+  try {
+    if (isEditing) {
+      const { error } = await supabase.from('usuario')
+        .update({
+          nombre_usuario: data.usuario,
+          provincia : data.provincia,
+          descripción : data.descripción,
+          fecha_creacion : fechaActual,
+          foto_perfil: fotoURL.data.publicUrl, // URL de la imagen de perfil
+          portada: PortadaURL.data.publicUrl, // URL de la imagen de portada
+          userID: user.data.user.id,
+        })
+        .eq('userID', user.data.user.id);
+        toast.success("Publicación actualizada");
 
-    await supabase.from('usuario').insert({
-      nombre_usuario: data.usuario,
-      provincia : data.provincia,
-      descripción : data.descripción,
-      fecha_creacion : fechaActual,
-      foto_perfil: fotoURL.data.publicUrl,
-      portada: PortadaURL.data.publicUrl,
-      userID: user.id,
-   })
+        if(error){
+          throw error
+        }
+    } else {
+      await supabase.from('usuario').insert({
+        nombre_usuario: data.usuario,
+        provincia : data.provincia,
+        descripción : data.descripción,
+        fecha_creacion : fechaActual,
+        foto_perfil: fotoURL.data.publicUrl, // URL de la imagen de perfil
+        portada: PortadaURL.data.publicUrl, // URL de la imagen de portada
+        userID: user.id,
+      });
+    }
 
-  } catch (error){
-    console.log(error)
-  }
     
-
-  
-
+    window.location.reload(); // Recargar la página después de guardar el perfil
+  } catch (error) {
+    console.error(error);
+  }
 
   };
-  
 
 
   return (
-    <section className="formPerfil">
-      <section className="formPerfil-contenedor">
+    <section >
+     <Toaster/>
+     <Modal overflow={true} size="lg" open={open} onClose={onClose}>
+        <Modal.Header>
         <h3 className="formPerfil-contenedor-titulo">
-          Rellene datos para completa el perfil
+        {isEditing ? 'Editar perfil' : 'Rellene datos para completar el perfil'}
         </h3>
+        </Modal.Header>
+        <Modal.Body>
+        <section className="formPerfil-contenedor">
+     
         <form
           className="index-login-contenedor-form"
           onSubmit={handleSubmit(onSubmit)}
@@ -174,6 +201,15 @@ const DatoPerfil = ({ onProfileCompletion, hasRequiredFields }) => {
           <input className="index-login-contenedor-form-btn" type="submit" />
         </form>
       </section>
+        </Modal.Body>
+        
+      </Modal>
+     
+
+
+
+
+
     </section>
   );
 };

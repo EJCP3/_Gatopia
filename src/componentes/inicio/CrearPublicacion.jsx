@@ -1,211 +1,151 @@
+import  { useCallback, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
-// import { supabase } from '../../../supabase/client';
-import { FaTimes,  FaRegFileImage  } from "react-icons/fa";
 import { useDropzone } from "react-dropzone";
-import { useCallback, useEffect, useState } from "react";
 import { supabase } from "../../supabase/client";
-import { IconBase } from "react-icons";
-// import { fetchPublicaciones } from "./resetPubli";
 import { Toaster, toast } from 'sonner';
+import { Modal, Button } from 'rsuite';
 
-
-const CrearPublicacion = ({publicacion, onClose}) => {
+const CrearPublicacion = ({ publicacionID, onClose , openUpdate, open, onCloseHeader }) => {
+  const [imageUrl, setImageUrl] = useState("");
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [selectedPublicacion, setSelectedPublicacion] = useState(null);
   const [publicaciones, setPublicaciones] = useState([]);
-  const [usuarios, setUsuarios] = useState([]);
-  const [nuevosDatos, setNuevosDatos] = useState([]);
-  const [imageUrl, setImageUrl] = useState(""); // Estado para almacenar la URL de la imagen seleccionada
 
-  
-
+  console.log("numero",publicacionID)
 
   useEffect(() => {
-  if (publicacion) {
-      // Llenar los campos del formulario con los datos de la publicación seleccionada
-      setNuevosDatos({
-        descripción: publicacion.descripción,
-        foto: publicacion.foto,
-        // Agregar otros campos si es necesario
-      });
-      setImageUrl(publicacion.foto);
+    if (publicacionID) {
+      setImageUrl(publicacionID.foto);
     }
-    
-    fetchData()
-  }, [publicacion]);
-
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setNuevosDatos(prevState => ({
-  //     value: setNuevosDatos.descripcion
-      
-  //   }));
-  // };
-
+  }, [publicacionID]);
 
   const handleChange = (event) => {
-    console.log(nuevosDatos);
-
     const { name, value } = event.target;
-    setNuevosDatos(prevState => ({
-      ...prevState,
-      [name]: value,
-      
-    }));
+    setImageUrl(value); // Asumiendo que quieres actualizar la imagen directamente
   };
 
+  const fetchData = async () => {
+    try{
+      const { data: publicacionesData, error: publicacionesError } =
+      await supabase
+        .from("publicaciones")
+        .select("*")
+        .order("fecha", { ascending: false });
 
-
-
-  const  fetchData = async () => {
-    try {
-      // Obtener las publicaciones
-      const { data: publicacionesData, error: publicacionesError } = await supabase
-        .from('publicaciones')
-        .select('*')
-        .order('fecha', { ascending: false });
-
-      if (publicacionesError) {
-        throw publicacionesError;
-      }
-
-        setPublicaciones(publicacionesData);
-      // Obtener los datos de usuario para cada publicación
-      
-      const usuariosIDs = publicacionesData.map(publicacion => publicacion.userID);
-
-      const { data: usuariosData, error: usuariosError } = await supabase
-        .from('usuario')
-        .select('userID,nombre_usuario, foto_perfil')
-        .in('userID', usuariosIDs);
-
-      
-      if (usuariosError) {
-        throw usuariosError;
-      }
-      setUsuarios(usuariosData);
-    
-
-    } catch (error) {
-      console.error('Error al obtener los datos:', error.message);
+    if (publicacionesError) {
+      throw publicacionesError;
     }
-  }
 
+    setPublicaciones(publicacionesData);
 
-    const onDrop = useCallback((acceptedFiles) => {
-      const file = acceptedFiles[0];
-      if (file) {
-        const imageUrl = URL.createObjectURL(file);
-        setImageUrl(imageUrl);
-      }
-      }, []);
-      const { getRootProps, getInputProps, isDragActive, acceptedFiles = "" } =
-        useDropzone({ onDrop });
+    // setPublicaciones(
+    //   publicaciones.filter((Publicacion) =>  {console.log("dsd")})
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    // );
+      console.log("siii", publicaciones.map((publicacion) => {console.log(publicacion)}))
+    }
+   
 
-    const onSubmit = async (data) => {
+    catch(error){
+      console.error("Error al obtener los datos:", error.message);
 
-      const fechaActual = new Date();
-  const fechaHoraFormateada = fechaActual.toLocaleString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+      
+  };
 
+  const onDrop = useCallback((acceptedFiles) => {
+    const file = acceptedFiles[0];
+    const imageUrl = URL.createObjectURL(file);
+    setImageUrl(imageUrl);
+  }, []);
 
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({ onDrop });
 
-      const {error} = await supabase.storage
+  console.log(acceptedFiles[0])
+
+  const onSubmit = async (data) => {
+    const fechaHoraFormateada = new Date().toISOString();
+    const file = acceptedFiles[0];
+  
+    if (!file) {
+      toast.error('No se ha seleccionado una imagen para cargar');
+      return;
+    }
+  
+    const { error: uploadError, data: uploadData } = await supabase.storage
       .from('publicaciones')
-      .upload(`${acceptedFiles[0].name}`, acceptedFiles[0])
+      .upload(`${new Date().getTime()}_${file.name}`, file);
   
-      error ? console.error('Error al subir la imagen:', error.message) : null;
+    if (uploadError) {
+      console.error('Error al subir la imagen:', uploadError.message);
+      toast.error('Error al subir la imagen');
+      return;
+    }
   
-      const fotoPubli = supabase.storage.from('publicaciones')
-    .getPublicUrl(`${acceptedFiles[0].name}`)
+    const imageUrl = supabase.storage.from('publicaciones').getPublicUrl(`${uploadData.path}`).data.publicUrl;
   
-    fotoPubli.error ? console.error('Error al obtener el enlace público de la imagen:', fotoURL.error.message) : null;
+    if (!imageUrl) {
+      toast.error('Error al obtener la URL de la imagen');
+      return;
+    }
+  
+    const publicationData = {
+      foto: imageUrl,
+      descripción: data.textarea,
+      fecha: fechaHoraFormateada
+    };
+
+    console.log("publicacion", publicacionID, publicacionID)
+  
+    let dbResponse;
+    if (publicacionID ) {
+      dbResponse = await supabase.from('publicaciones').update(publicationData).eq('id', publicacionID);
+    } else {
+      dbResponse = await supabase.from('publicaciones').insert(publicationData);
+    }
+  
+    if (dbResponse.error) {
+      console.error('Error al guardar la publicación:', dbResponse.error.message);
+      toast.error('Error al procesar la publicación');
+    } else {
+      toast.success(`Publicación ${publicacionID ? 'actualizada' : 'agregada'} con éxito!`);
+      onCloseHeader();
+      onClose();
+      fetchData(); 
      
-            console.log(fotoPubli)
-        const user = supabase.auth.getUser();
-        fetchData()
-        try{
-      
-          await supabase.from('publicaciones').insert({
-            foto: fotoPubli.data.publicUrl,
-            descripción: data.textarea,
-            fecha: fechaHoraFormateada,
-            userID: user.id,
+     
+     // Actualiza la lista de publicaciones
+    }
+};
 
-         
-         })
-       
-         alert("dasdas")
-        toast(await fetchData());
-        onClose();
-
-         
-        } catch (error){
-          console.log(error)
-        }
-        
-      }
-      fetchData()
-
-      // const handleChangeImage = (e) => {
-      //   const file = e.target.files[0];
-      //   if (file) {
-      //     const imageUrl = URL.createObjectURL(file);
-      //     setImageUrl(imageUrl); // Actualizar el estado con la URL de la imagen seleccionada
-      //   }
-      // };
-
-      const [nuevosde, setNuevosde] = useState("");
-
-      
+  
 
   return (
-    <section className='modalpublic'>
-     <Toaster/>
-     <section className="modalpublic-contenedor">
-     <div className="modalpublic-contenedor-icon">
-     <button className='modalpublic-contenedor-icon-btnCerrar' onClick={onClose}>
-        <FaTimes />
-      </button>
-     </div>
-    
-     <form  onSubmit={handleSubmit(onSubmit)} className='modalpublic-contenedor-form'>
-        
-          <textarea
-          id="des"
-        className='modalpublic-contenedor-form-input'
-        name="descripcion"
-        type="textarea"
-        
-            onChange={handleChange}
-      
-        placeholder="Escribe una publicacion..."
-       
-        {...register("textarea")}
-        required
-         
-        />
-                  {imageUrl && <img className='modalpublic-contenedor-form-img' src={imageUrl} />}
-
-       {/* {acceptedFiles[0] && (<img className='modalpublic-contenedor-form-img' src={URL.createObjectURL(acceptedFiles[0])} />)}  */}
-           <div className='modalpublic-contenedor-form-conImg' {...getRootProps()}>
-           <input {...getInputProps()} />
-
-      {
-        isDragActive ?
-           <span><img src="/src/assets/img-box-fill.svg"/> Foto </span> :
-          <span className="modalpublic-contenedor-form-conImg-cnt"> <img src="/src/assets/img-box-fill.svg"/> Foto</span>
-      }
-      
-
-       
-      </div> 
-
-      <button className='modalpublic-contenedor-form-btn' >Publicar</button>
-    </form>
-     </section>
+    <section>
+      <Toaster />
+      <Modal size={"sm"} open={open || openUpdate} onClose={onCloseHeader || onClose}>
+        <Modal.Header></Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmit(onSubmit)} className='modalpublic-contenedor-form'>
+            <textarea
+              id="des"
+              className='modalpublic-contenedor-form-input'
+              name="descripcion"
+              placeholder="Escribe una publicacion..."
+              onChange={handleChange}
+              {...register("textarea", { required: true })}
+            />
+            {imageUrl && <img className='modalpublic-contenedor-form-img' src={imageUrl} alt="Preview" />}
+            <div {...getRootProps()} className='modalpublic-contenedor-form-conImg'>
+              <input {...getInputProps()} />
+              {isDragActive ? <span>Foto</span> : <span>Cargar Foto</span>}
+            </div>
+            <Button type='submit' className='modalpublic-contenedor-form-btn'>Publicar</Button>
+          </form>
+        </Modal.Body>
+      </Modal>
     </section>
-  )
-}
+  );
+};
 
-export default CrearPublicacion
+export default CrearPublicacion;

@@ -7,11 +7,25 @@
 
 
 @media screen and (min-width: 1000px){
-    .historias-contenedor{
+
+    .historias{
+        display: flex;
+     
+      
+        &-main{
+            flex-direction: row;
         display: flex;
         gap: 25px;
         flex-wrap: wrap; 
-        justify-content: center;
+        justify-content:center;
+        align-items: center;
         width: 80%;
+
+        &-contenido{
+            width: 40%;
+        }
     }
+    }
+
+    
 }
