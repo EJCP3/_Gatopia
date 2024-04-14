@@ -100,7 +100,7 @@ function Navegacion() {
           <a className="home-nav-contenedor-pagina-link" href="/Adopciones">
             Adopciones
           </a>
-          <Link to="/Adopciones">Adopciones</Link>
+         
           <a className="home-nav-contenedor-pagina-link" href="/Donaciones">
             Donaciones
           </a>
@@ -110,7 +110,7 @@ function Navegacion() {
         </div>
         <div className="home-nav-contenedor-confi">
           <a className="home-nav-contenedor-confi-item" href="/#">
-           si
+          Perfil
           </a>
           <a className="home-nav-contenedor-confi-item" onClick={signOut}>
             Cerrar sesion

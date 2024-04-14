@@ -14,8 +14,27 @@
         margin: 20px;
        
 
+        &-btn{
+            opacity: 1;
+        padding: 3px;
+        cursor: pointer;
+        background: none;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+        text-align: center;
+        width: 25px;
+        position: relative;
+        
+        left: 92%;
+        
+       color: black;
+        }
+
         &-img{
-            border-top-left-radius: 10px; border-top-right-radius: 10px;
+            width: 100%;
+           
         }
 
         &-perfil{
@@ -24,9 +43,10 @@
             margin: 10px;
             align-items: center;
 
-            &-foto{
-                width: 50px;
-                height: 30px;
+            &-img{
+                clip-path: circle(35% at 50% 50%);
+                max-width: 15%;
+                height: auto;
             }
 
             &-usuario{

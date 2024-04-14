@@ -55,7 +55,7 @@ const Perfil = () => {
                       {perfil.provincia}
                     </p>
                     <p className='modalP-perfil-contenedor-info-fecha'>
-                     <strong>fecha de creación:</strong>  {perfil.fecha_creacion}
+                     <strong>Fecha de creación:</strong>  {perfil.fecha_creacion}
                     </p>
                     <p className='modalP-perfil-contenedor-info-des'>
                     {perfil.descripcion}

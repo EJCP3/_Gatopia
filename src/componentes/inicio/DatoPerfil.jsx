@@ -131,7 +131,6 @@ const DatoPerfil = ({ onProfileCompletion, hasRequiredFields }) => {
   
 
 
-    console.log( setProfileImage)
   };
   
 
