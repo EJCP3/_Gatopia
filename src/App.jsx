@@ -61,7 +61,7 @@ function App() {
         navigate('/');
 
       }else{
-        navigate('/Donaciones');
+        navigate('/Adopciones');
       }
     })
 

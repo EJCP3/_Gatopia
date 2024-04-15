@@ -7,17 +7,7 @@ import './estilos/styles.scss'
    <section className="adopcion">
     <Header/>
     <section className="adopcion-contenedor-gato">
-    <Main/>
-    <Main/>
-    <Main/>
-    <Main/>
-    <Main/>
-    <Main/>
-    <Main/>
-    <Main/>
-    <Main/>
-    <Main/>
-    <Main/>
+    
     <Main/>
     </section>
    </section>

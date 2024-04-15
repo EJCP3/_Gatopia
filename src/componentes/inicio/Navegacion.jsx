@@ -65,6 +65,7 @@ function Navegacion() {
 		const fetchPerfil = async () => {
 			try{
 				const user = await supabase.auth.getUser();
+        console.log(user.data.user.email)
 				const { error, data} = await supabase.from("usuario")
         .select("nombre_usuario, foto_perfil")
         .eq("userID", user.data.user.id);

@@ -17,7 +17,7 @@ const Main = () => {
   const [selectedHistoria, setSelectedHistoria] = useState(null);
   const [open, setOpen] = useState(false);
   const [imageUrls, setImageUrls] = useState([]);
-  const [userRole, setUserRole] = useState(null);  // Estado para almacenar el rol del usuario
+  const [userRole, setUserRole] = useState(null); 
 
    useEffect(() => {
     fetchHistorias();
@@ -26,8 +26,6 @@ const Main = () => {
 
   const fetchHistorias = async () => {
     const { data, error } = await supabase.from("historias").select("*").order("fecha", { ascending: false });
-
-    
     if (error) console.error("Error al obtener las historias:", error.message);
     else setHistorias(data);
   };

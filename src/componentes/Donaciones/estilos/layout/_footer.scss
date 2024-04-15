@@ -4,11 +4,12 @@
 .donaciones-footer{
 
     &-info{
-        margin-top: 20px;
+        margin-top: 50px;
         background-color: v.$background;
         display: flex;
         text-align: center;
         flex-direction: column;
+      
     
         &-img{
             display: flex;
@@ -26,10 +27,11 @@
             font-size: v.$font-Khand;
             color: v.$Text;
             font-weight: 600;
+            
         }
     
         &-cuenta,  &-paypal{
-            font-size: 25px;
+            font-size: 20px;
             font-size: v.$font-Khand;
             color: v.$Text;
             font-weight: 600;
@@ -43,12 +45,11 @@
 }
 
 &-masInfo{
-    text-align: center;
     text-wrap: balance;
-    font-size: 20px;
+    font-size: 15px;
     font-family: v.$font-Switzer;
     font-weight: 400;
-    color: v.$Primary;
+    text-align: center;
 }
 
 &-img{
@@ -64,11 +65,11 @@
 
         display: flex;
         align-items: center;
-        flex-direction: column;
         justify-content: center;
-
+        width: 50%;
+        text-align: center;
         &-info{
-            width: 700px;
+            
         
         
             &-img{

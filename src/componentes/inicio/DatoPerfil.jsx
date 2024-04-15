@@ -116,7 +116,7 @@ const DatoPerfil = ({ onProfileCompletion, hasRequiredFields, size, open, onClos
   console.log("si", fotoURL.data.publicUrl)
   console.log("no", PortadaURL.data.publicUrl)
   const user = await supabase.auth.getUser();
-
+   console.log(user.data.user.email)
   try {
     if (isEditing) {
       const { error } = await supabase.from('usuario')

@@ -2,11 +2,13 @@
 
 
 .donaciones-pago{
-
+ background-color: v.$bg-200;
+  
 
 &-form-pago{
-  background-color: v.$background;
   height: 50vh;
+  margin-bottom: 20px;
+  overflow:scroll;
 
   &-paso{
       display: flex;
