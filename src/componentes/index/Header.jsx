@@ -12,9 +12,9 @@ const Header = () => {
         <span className="index-header-subtitulo-img" ></span>
       </h3>
       <a className="index-header-btn" href="/Adopciones">Conoce a nuestros bigotudo</a>
-      <img className="index-header-imagenPortada" src="/src/assets/mobile/gatoheader.svg"/>
+      <img className="index-header-imagenPortada" src="https://uoatbkvmdkgovqixyint.supabase.co/storage/v1/object/public/imagen/mobile/gatoheader.svg"/>
       <div className="index-header-img">
-        <img  src="/src/assets/mobile/feedPet.svg"/> <img src="/src/assets/mobile//animals_cat.svg"/>
+        <img  src="https://uoatbkvmdkgovqixyint.supabase.co/storage/v1/object/public/imagen/mobile/feedPet.svg"/> <img src="/src/assets/mobile//animals_cat.svg"/>
       </div>
       </section>
     </>

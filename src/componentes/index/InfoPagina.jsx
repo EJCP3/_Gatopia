@@ -18,15 +18,15 @@
         <div className='index-main-servicio-contenido'>
         <figure className="index-main-servicio-subcontenido">
           <figcaption>Alimentacion</figcaption>
-          <img src="/src/assets/mobile/gatoServicio.svg" />
+          <img src="https://uoatbkvmdkgovqixyint.supabase.co/storage/v1/object/public/imagen/mobile/gatoServicio.svg" />
         </figure>
         <figure className="index-main-servicio-subcontenido">
           <figcaption>Planes de adopcion</figcaption>
-          <img src="/src/assets/mobile/gatoServicio2.svg"/>
+          <img src="https://uoatbkvmdkgovqixyint.supabase.co/storage/v1/object/public/imagen/mobile/gatoServicio2.svg"/>
         </figure>
         <figure className="index-main-servicio-subcontenido">
           <figcaption>Adopción responsable</figcaption>
-          <img src="/src/assets/mobile/gatoServicio3.svg"/>
+          <img src="https://uoatbkvmdkgovqixyint.supabase.co/storage/v1/object/public/imagen/mobile/gatoServicio3.svg"/>
         </figure>
         </div>
       </article>

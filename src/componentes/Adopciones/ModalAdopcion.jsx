@@ -107,70 +107,70 @@ const ModalAdopcion = ({ open, onClose, selectedGatoAdopcion }) => {
   const [user, setUser] = useState([]);
 
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        // Obtener datos del usuario autenticado
-        const { data: userData, error: userError } = await supabase.auth.getUser();
-        if (userError) throw new Error(userError.message);
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       // Obtener datos del usuario autenticado
+  //       const { data: userData, error: userError } = await supabase.auth.getUser();
+  //       if (userError) throw new Error(userError.message);
 
-        if (userData) {
-            setUser( userData.user.email)
-          console.log('Correo del usuario:', user); // Opcional: imprimir para verificar
+  //       if (userData) {
+  //           setUser( userData.user.email)
+  //         console.log('Correo del usuario:', user); // Opcional: imprimir para verificar
 
-          // Obtener datos específicos de la base de datos
-          const { data, error } = await supabase
-            .from('usuario') // Suponiendo que es la tabla correcta, ajusta si es necesario
-            .select('correo')
-            .eq('userID', selectedGatoAdopcion.userID)
-            .single();
+  //         // Obtener datos específicos de la base de datos
+  //         const { data, error } = await supabase
+  //           .from('usuario') // Suponiendo que es la tabla correcta, ajusta si es necesario
+  //           .select('correo')
+  //           .eq('userID', selectedGatoAdopcion.userID)
+  //           .single();
 
-          if (error) throw new Error(error.message);
+  //         if (error) throw new Error(error.message);
 
-          setProfile(data.correo);
-        }
-      } catch (error) {
-        console.error('Error al obtener datos:', error.message);
-      } finally {
-        // Opcional: cualquier limpieza o acciones finales van aquí
-        console.log('Consulta completada'); // Opcional: mensaje para indicar fin del proceso
-      }
-    };
+  //         setProfile(data.correo);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error al obtener datos:', error.message);
+  //     } finally {
+  //       // Opcional: cualquier limpieza o acciones finales van aquí
+  //       console.log('Consulta completada'); // Opcional: mensaje para indicar fin del proceso
+  //     }
+  //   };
 
-    fetchUserData();
-  }, [selectedGatoAdopcion.userID]);
+  //   fetchUserData();
+  // }, [selectedGatoAdopcion.userID]);
 
 
   const handleSubmit = async (e) => {
 
-    console.log(profile)
-    const templateParams = {
-        name: formValue.name,
-        email: profile,
+    // console.log(profile)
+    // const templateParams = {
+    //     name: formValue.name,
+    //     email: profile,
       
-        telefono: formValue.telefono
+    //     telefono: formValue.telefono
         
-    };
+    // };
     
 
 
 
-      e.preventDefault();
+      // e.preventDefault();
 
-      console.log(templateParams)
+      // console.log(templateParams)
 
-      emailjs
-        .sendForm('service_h7f16tp', 'template_yt04w7b', templateParams, {
-          publicKey: '7A-xyLXHrHQM0zJ39',
-        })
-        .then(
-          (response) => {
-            console.log('SUCCESS!', response.status, response.text);
-          },
-          (error) => {
-            console.log('FAILED...', error.text);
-          },
-        );
+      // emailjs
+      //   .sendForm('service_h7f16tp', 'template_yt04w7b', templateParams, {
+      //     publicKey: '7A-xyLXHrHQM0zJ39',
+      //   })
+      //   .then(
+      //     (response) => {
+      //       console.log('SUCCESS!', response.status, response.text);
+      //     },
+      //     (error) => {
+      //       console.log('FAILED...', error.text);
+      //     },
+      //   );
       
     
   };
@@ -250,7 +250,7 @@ const ModalAdopcion = ({ open, onClose, selectedGatoAdopcion }) => {
 
       <Modal size={"lg"} open={openForm} onClose={handleCloseForm}  >
         <Modal.Header>
-          <Modal.Title>formulario</Modal.Title>
+          <Modal.Title>Formulario</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form formValue={formValue}  onChange={handleFormChange} onSubmit={handleSubmit} ref={formRef} model={model} fluid>

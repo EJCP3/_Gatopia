@@ -5,8 +5,8 @@ export const Contacto = () => {
    <section className='index-contacto'>
     <h2 className='index-contacto-titulo'>Quieres ser parte del la familia <span>gatunas</span> </h2>
     <picture className='index-contacto-img'>
-        <img src='/src/assets/mobile/gatoContacto.svg'/>
-        <img src='/src/assets/mobile/gatoContacto1.svg'/>
+        <img src='https://uoatbkvmdkgovqixyint.supabase.co/storage/v1/object/public/imagen/mobile/gatoContacto.svg'/>
+        <img src='https://uoatbkvmdkgovqixyint.supabase.co/storage/v1/object/public/imagen/mobile/gatoContacto1.svg'/>
     </picture>
     <div className="index-contacto-contenedor">
      <article className='index-contacto-contenedor-info' >
@@ -44,8 +44,8 @@ export const Contacto = () => {
      </article>
      </div>
      <picture className='index-contacto-img'>
-     <img  src='/src/assets/mobile/gatoContacto3.svg'/>
-     <img  src='/src/assets/pc/gatoContacto4.svg'/>
+     <img  src='https://uoatbkvmdkgovqixyint.supabase.co/storage/v1/object/public/imagen/mobile/gatoContacto3.svg'/>
+     <img  src='https://uoatbkvmdkgovqixyint.supabase.co/storage/v1/object/sign/imagen/gatoContacto4.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZW4vZ2F0b0NvbnRhY3RvNC5zdmciLCJpYXQiOjE3MTMyMzU3OTEsImV4cCI6MTcxNTgyNzc5MX0.S5-gtdEhC6JnIgpPX14vGQVRFAa16NYw1vCDmsB01mY&t=2024-04-16T02%3A49%3A51.637Z'/>
      </picture>
    
      
