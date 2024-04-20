@@ -4,7 +4,7 @@ import { supabase } from "../../supabase/client";
 import { useNavigate } from "react-router-dom";
 import modalPerfil from "./perfil/ModalPerfil";
 import Perfil from "./perfil/Perfil";
-
+import { Link } from "react-router-dom";
 
 import "rsuite/dist/rsuite.min.css";
 import ModalPerfil from "./perfil/ModalPerfil";
@@ -50,8 +50,18 @@ function Navegacion() {
   const [perfil, setPerfil] = useState({nombreUsuario: '', fotoPerfil: ''})
 
   async function signOut() {
-    const { error } = await supabase.auth.signOut()
-  }
+    try {
+        const { error } = await supabase.auth.signOut();
+        if (error) throw error;
+
+        // Redirige al usuario a la página de inicio o de login tras cerrar sesión
+        navigate('/');
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error.message);
+        // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario
+        alert('Error al cerrar sesión: ' + error.message);
+    }
+} 
 
   const showNavbar = () => {
     navRef.current.classList.toggle("responsive_nav");
@@ -89,17 +99,6 @@ function Navegacion() {
 	}, []); 
   
 
-  // const [showModal, setShowModal] = useState(false);
-
-  // const handleOpenModal = (e) => {
-  //   e.stopPropagation();
-  //   setShowModal(true);
-  // };
-
-  // const handleCloseModal = (e) => {
-  //   e.stopPropagation();
-  //   setShowModal(false);
-  // };
 
 
   return (
@@ -108,7 +107,7 @@ function Navegacion() {
       <img 
         className="home-nav-logo-img"
         src={perfil.fotoPerfil}
-        alt="Imagen de perfil de usuario"
+        alt="Foto PEr"
       />
       <h3 className="home-nav-logo-titulo">{perfil.nombreUsuario}</h3>
       <Perfil size={size} open={open} onClose={handleClose}/>
@@ -128,26 +127,21 @@ function Navegacion() {
 
       <nav className="home-nav-contenedor" ref={navRef}>
         <div className="home-nav-contenedor-pagina">
-          <a className="home-nav-contenedor-pagina-link" href="/Home" >
-            Home
-          </a>
-          <a className="home-nav-contenedor-pagina-link" href="/Adopciones">
-            Adopciones
-          </a>
+        <Link to="/Home" className="home-nav-contenedor-pagina-link">Home</Link>
+          <Link to="/Home/Adopciones" className="home-nav-contenedor-pagina-link">Adopciones</Link>
          
-          <a className="home-nav-contenedor-pagina-link" href="/Donaciones">
-            Donaciones
-          </a>
-          <a  className="home-nav-contenedor-pagina-link" href="/Historias">
-            Historias
-          </a>
+          <Link to="/Home/Donaciones" className="home-nav-contenedor-pagina-link">Donaciones</Link>
+          <Link to="/Home/Historias" className="home-nav-contenedor-pagina-link">Historias</Link>
         </div>
         <div className="home-nav-contenedor-confi">
           <a size="sm" onClick={(e) => handleOpenPerfil(e)} className="home-nav-contenedor-confi-item" >
           Perfil
           </a>
           <ModalPerfil size={sizePerfil} open={openPerfil} onClose={handleClosePerfil}/>
-          <a className="home-nav-contenedor-confi-item" onClick={signOut}>
+          <a className="home-nav-contenedor-confi-item" onClick={(e) => {
+            e.stopPropagation();
+             signOut();
+              }}>
             Cerrar sesion
           </a>
         </div>
@@ -164,6 +158,6 @@ function Navegacion() {
       </button>
     </div>
   );
-}
 
+}
 export default Navegacion;

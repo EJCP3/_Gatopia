@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from "../../supabase/client";
 import { Toaster,  toast } from "sonner";
-import { Carousel, Modal, ButtonToolbar } from "rsuite";
+import { Carousel, Modal, ButtonToolbar, Button } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
-import { Dropdown } from 'rsuite';
+
 import Navegacion from "../inicio/Navegacion";
 import CrearHistoria from "./CrearHistorial";
 
@@ -50,6 +50,10 @@ const Main = () => {
   }
   };
 
+  const onHistoriaChange = () => {
+    fetchHistorias();  // Recarga las historias
+  };
+
   function extractUrls(urlString) {
     const trimmedString = urlString.slice(1, -1);
     const urls = trimmedString.split('], [');
@@ -70,54 +74,31 @@ const Main = () => {
     setImageUrls([]);
   };
 
-  const handleEdit = (historia) => {
-    setSelectedHistoria(historia);
-    setOpen(true);
-  };
-
-
-  const handleDelete = (historiaId) => {
-    console.log(historiaId.id)
-    console.log("si")
-    toast('¿Estás seguro de que quieres eliminar esta historia?', {
-      duration: 10000,  // Muestra el toast por 10 segundos, dando tiempo al usuario para actuar
-      position: "top-center",
-      style: {
-        background: '#ffe4ff',
-      },
-      action: {
-        
-        label: 'Eliminar',
-        onClick: () => executeDelete(historiaId)
+  const handleDelete = async (historiaId) => {
+    if (userRole === "admin") {
+      const { error } = await supabase.from("historias").delete().eq('id', historiaId);
+      if (error) {
+        toast.error("Error al eliminar la historia: " + error.message);
+      } else {
+        toast.success("Historia eliminada correctamente");
+        fetchHistorias();
       }
-    });
-  };
-
-  const executeDelete = async (historiaId) => {
-    console.log("ds",historiaId)
-        const { error } = await supabase.from("historias").delete().eq('id', historiaId);
-    if (error) {
-      toast.error({ title: "Error", description: "No se pudo eliminar la historia" });
-    } else {
-      fetchHistorias();  // Re-fetch the historias after deletion
-      toast.success({ title: "Success", description: "Historia eliminada correctamente" });
     }
   };
 
 
-  const AdminActionsDropdown = ({ historiaId }) => {
-    return userRole === 'admin' && (
-      <Dropdown title="Opciones" trigger={['click', 'hover']} placement="rightStart">
-        <Dropdown.Item onClick={() => handleEdit(historiaId)}>Editar</Dropdown.Item>
-        <Dropdown.Item onClick={() => handleDelete(historiaId.id)}>Eliminar</Dropdown.Item>
-      </Dropdown>
-    );
+  const handleOpenCrearParaEditar = (historia) => {
+    setSelectedHistoria(historia);
+    setOpenCrear(true);
   };
+
+ 
+
+
 
   return (
 <section>
     <section className="historias-header">
-    <Navegacion />
     <h3 className="historias-header-titulo">
       Historias de los mas valientes
     </h3>
@@ -134,9 +115,7 @@ const Main = () => {
         <article key={historia.id} className="historias-main-contenido" onClick={() => handleOpen(historia)}>
         
           <img className="historias-main-contenido-img" src={historia.carusel ? extractUrls(historia.carusel)[0] : undefined} alt="Cover" />
-          <ButtonToolbar>
-            <AdminActionsDropdown historiaId={historia} />
-          </ButtonToolbar>
+         
           <div className="home-historias-item-details">
             <h4 className="historias-main-contenido-titulo">{historia.titulo}</h4>
             <p className="historias-main-contenido-fecha">{new Date(historia.fecha).toLocaleDateString("es-ES")}</p>
@@ -146,20 +125,36 @@ const Main = () => {
       ))}
 
       {selectedHistoria && (
-        <Modal size="sm" open={open} onClose={handleClose}>
-          <Modal.Header>
-            <Modal.Title>{selectedHistoria.titulo}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p className="home-historias-modal-date">{new Date(selectedHistoria.fecha).toLocaleDateString("es-ES")}</p>
-            <p className="home-historias-modal-description">{selectedHistoria.descripción}</p>
-            <Carousel autoplay className="custom-slider">
-              {imageUrls.map((foto, index) => (
-                <img key={index} src={foto} height="100" width="100px" alt={`Slide ${index + 1}`} />
-              ))}
-            </Carousel>
-          </Modal.Body>
-        </Modal>
+        <Modal size="sm" open={open} onClose={handleClose} className="historias-modal">
+    <Modal.Header>
+        <Modal.Title>{selectedHistoria.titulo}</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+        <p className="home-historias-modal-description">{selectedHistoria.descripción}</p>
+        <Carousel autoplay className="custom-slider">
+            {imageUrls.map((foto, index) => (
+                <img key={index} src={foto} alt={`Slide ${index + 1}`} />
+            ))}
+        </Carousel>
+        <p className="home-historias-modal-date">{new Date(selectedHistoria.fecha).toLocaleDateString("es-ES")}</p>
+    </Modal.Body>
+    <Modal.Footer>
+          {userRole === "admin" && (
+                <>
+                  <Button color="blue" appearance="primary" onClick={() => setOpenCrear(true)}>Editar</Button>
+                  <Button color="red" appearance="primary" onClick={() => handleDelete(selectedHistoria.id)}>Eliminar</Button>
+                </>
+              )}
+          </Modal.Footer>
+</Modal>
+      )}
+      {openCrear && (
+        <CrearHistoria
+          open={true}
+          onClose={() => setOpenCrear(false)}
+          historia={selectedHistoria}
+          onHistoriaChange={onHistoriaChange}  
+        />
       )}
     </section>
     </section>

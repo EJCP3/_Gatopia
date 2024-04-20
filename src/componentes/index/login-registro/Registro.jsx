@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 // import {useDropzone} from 'react-dropzone'
 import { supabase } from '../../../supabase/client';
 // import { useNavigate } from 'react-router-dom';
+import { toast,Toaster } from 'sonner';
 
 
 
@@ -28,11 +29,10 @@ const Registro = () => {
         if (error) {
           throw error; 
         }
-  
-        alert("¡Usuario registrado con éxito!");
+        toast.info('Para finalizar su registro, por favor verifique su correo en Gmail.')
       } catch (error) {
-        console.error("Error:", error.message);
-        alert("Error al registrarse: " + error.message);
+        console.error('Error en el inicio de sesión:', error.message);
+        toast.error('Error en el inicio de sesión: ' + error.message);  
       }
       
     };

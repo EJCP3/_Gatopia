@@ -1,12 +1,12 @@
 import  { useState } from 'react';
 import { Steps, Panel, InputNumber, ButtonGroup, Button, InputGroup } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
-import PayPalWrapper from '../../page/PaypalWrapper';
+import PayPalWrapper from './PaypalWrapper';
 
 
 const Pago = () => {
   const [step, setStep] = useState(0);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(5);
 
   const onNext = () => setStep(step < 1 ? step + 1 : 1);
   const onPrevious = () => setStep(step > 0 ? step - 1 : 0);

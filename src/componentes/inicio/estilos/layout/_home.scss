@@ -1,9 +1,6 @@
 @use '/src//componentes/index/estilos/base/variables' as v;
 
 
-.home {
-  background-color: #FFFFFF;
-}
 
 
 @media screen and (min-width: 1000px) {
@@ -13,7 +10,7 @@
     grid-template-areas:
       "home-header home-header home-header home-navegacion"
       "home-publicacion home-publicacion home-publicacion home-navegacion";
-      background-color: #FFFFFF;
+      background-color: v.$bg-200;
     
 
 

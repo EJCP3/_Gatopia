@@ -19,4 +19,94 @@
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
+    height: auto;
+}
+
+.modal-adopcion {
+    .modal-header {
+        background-color: v.$primary-300;
+        color: v.$Text;
+        padding: 20px;
+        text-align: center;
+        font-family: v.$font-Khand;
+        font-size: 24px;
+
+        .modal-title {
+            font-weight: bold;
+        }
+    }
+
+    .modal-body {
+        padding: 20px;
+        background-color: v.$background;
+        color: v.$Text;
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .rs-picker-select, .rs-input, textarea, .rs-checkbox {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .rs-uploader {
+            .rs-uploader-trigger {
+                width: 100%;
+                background-color: v.$Primary;
+                color: v.$background;
+                &:hover {
+                    background-color: darken(v.$Primary, 10%);
+                }
+            }
+        }
+    }
+
+    .modal-footer {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        background-color: v.$bg-200;
+
+        .rs-btn {
+            margin: 0 5px;
+        }
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .modal-adopcion {
+        .modal-header {
+            font-size: 28px; // Tamaño de fuente más grande para cabecera en PC
+        }
+
+        .modal-body {
+            padding: 30px; // Mayor padding para un look más espacioso
+            .form-group {
+                margin-bottom: 20px; // Mayor espaciado entre form groups
+            }
+
+            .rs-picker-select, .rs-input, textarea {
+                font-size: 16px; // Aumentar la fuente para mejorar la legibilidad
+            }
+
+            .rs-checkbox-checker {
+                font-size: 16px; // Aumentar la fuente para los checkboxes
+            }
+
+            .rs-uploader {
+                .rs-uploader-trigger {
+                    padding: 12px; // Mayor padding para facilitar la interacción
+                }
+            }
+        }
+
+        .modal-footer {
+            justify-content: flex-end; // Botones alineados a la derecha para un diseño más estándar de escritorio
+            .rs-btn {
+                font-size: 16px; // Botones con fuente más grande
+                padding: 10px 20px; // Mayor padding para los botones
+            }
+        }
+    }
 }

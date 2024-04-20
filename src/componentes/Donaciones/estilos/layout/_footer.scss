@@ -1,102 +1,73 @@
 @use '/src//componentes/index/estilos/base/variables' as v;
 
+.donaciones-footer {
+   
+  margin-top: 10px;
+  background-color: v.$background;
+  padding: 20px;
+  border-radius: 8px;
+  font-family: v.$font-Switzer;
 
-.donaciones-footer{
+  .rs-accordion .rs-accordion-item {
+    margin-bottom: 10px;
+    border: none;
 
-    &-info{
-        margin-top: 50px;
-        background-color: v.$background;
-        display: flex;
-        text-align: center;
-        flex-direction: column;
-      
-    
-        &-img{
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-    
-           & img{
-                width: px; 
-                height: auto; 
-            }
-        }
-    
-        &-titulo{
-            font-size: 25px;
-            font-size: v.$font-Khand;
-            color: v.$Text;
-            font-weight: 600;
-            
-        }
-    
-        &-cuenta,  &-paypal{
-            font-size: 20px;
-            font-size: v.$font-Khand;
-            color: v.$Text;
-            font-weight: 600;
-    
-            & span{
-                font-size: 20px;
-                font-weight: 400;
-            }
-        }
+    .rs-accordion-item-header {
+      background-color: v.$primary-200;
+      color: v.$Text;
+      font-size: 18px;
+      font-weight: bold;
+      transition: background-color 0.3s;
 
-}
+      &:hover {
+        background-color: darken(v.$primary-200, 10%);
+      }
+    }
 
-&-masInfo{
-    text-wrap: balance;
-    font-size: 15px;
-    font-family: v.$font-Switzer;
-    font-weight: 400;
+    .rs-accordion-item-content {
+      background-color: v.$bg-300;
+      color: v.$Text;
+      padding: 15px;
+      font-size: 16px;
+    }
+  }
+
+  .donaciones-footer-masInfo, .donaciones-footer-info-cuenta, .donaciones-footer-info-paypal {
+   
+    padding: 10px;
+    line-height: 1.5;
     text-align: center;
-}
+  }
 
-&-img{
+  .donaciones-footer-img {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin-bottom: 20px;
+
+    img {
+      width: 100px; // Adjust according to your design needs
+      height: auto;
+      margin: 0 5px;
+    }
+  }
 }
 
+@media (min-width: 1000px) {
+  .donaciones-footer {
+    width: 40%;
+    padding: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+
+    .rs-accordion {
+      flex-grow: 1;
+      margin-left: 20px;
+    }
+
+    .donaciones-footer-img {
+      flex-basis: 300px; // Adjust based on your preference
+    }
+  }
 }
-
-@media screen and (min-width: 1000px){
-
-    .donaciones-footer{
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50%;
-        text-align: center;
-        &-info{
-            
-        
-        
-            &-img{
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                
-                & img{
-              width: 60px;
-            }
-              
-            } 
-        
-           
-    
-    }
-    
-    &-masInfo{
-        font-size: 15px;
-    }
-    
-    &-img{
-        display: none;
-        
-    }
-    
-    }
-
-}
-

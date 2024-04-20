@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 import { Modal, Form, Button, ButtonToolbar, Schema, Panel, Checkbox, SelectPicker, CheckPicker, List } from 'rsuite';
 import { supabase } from "../../supabase/client";
 import emailjs from '@emailjs/browser';
+import '/src/componentes/Adopciones/estilos/layout/_adopcion.scss'
+import { Toaster, toast } from "sonner";
+
 
 const { StringType, NumberType, BooleanType, ArrayType } = Schema.Types;
 
@@ -34,7 +37,10 @@ const model = Schema.Model({
 });
 
 const ModalAdopcion = ({ open, onClose, selectedGatoAdopcion }) => {
-    // console.log(selectedGatoAdopcion    )
+
+  const [correoGato, setCorreoGato] = useState(selectedGatoAdopcion)
+  console.log("si", correoGato)
+
   const [openForm, setOpenForm] = useState(false);
   const handleOpenForm = () => {
     setOpenForm(true);
@@ -100,78 +106,91 @@ const ModalAdopcion = ({ open, onClose, selectedGatoAdopcion }) => {
 
   ];
   const handleFormChange = (value) => {
-    setFormValue(value);
+    setFormValue(prev => ({ ...prev, ...value }));
   };
 
   const [profile, setProfile] = useState([]);
   const [user, setUser] = useState([]);
 
+  console.log("seeee", correoGato)
+  useEffect(() => {
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       // Obtener datos del usuario autenticado
-  //       const { data: userData, error: userError } = await supabase.auth.getUser();
-  //       if (userError) throw new Error(userError.message);
+   
 
-  //       if (userData) {
-  //           setUser( userData.user.email)
-  //         console.log('Correo del usuario:', user); // Opcional: imprimir para verificar
+  
+    const fetchUserData = async () => {
+      try {
+        // Obtener datos del usuario autenticado
+        const { data: userData, error: userError } = await supabase.auth.getUser();
+        if (userError) throw new Error(userError.message);
 
-  //         // Obtener datos específicos de la base de datos
-  //         const { data, error } = await supabase
-  //           .from('usuario') // Suponiendo que es la tabla correcta, ajusta si es necesario
-  //           .select('correo')
-  //           .eq('userID', selectedGatoAdopcion.userID)
-  //           .single();
+        if (userData) {
+            setUser( userData.user.email)
+          console.log('Correo del usuario:', user); // Opcional: imprimir para verificar
 
-  //         if (error) throw new Error(error.message);
+          // Obtener datos específicos de la base de datos
+          const { data, error } = await supabase
+            .from('usuario') // Suponiendo que es la tabla correcta, ajusta si es necesario
+            .select('correo')
+            .eq('userID', correoGato)
+            .single();
 
-  //         setProfile(data.correo);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error al obtener datos:', error.message);
-  //     } finally {
-  //       // Opcional: cualquier limpieza o acciones finales van aquí
-  //       console.log('Consulta completada'); // Opcional: mensaje para indicar fin del proceso
-  //     }
-  //   };
-
-  //   fetchUserData();
-  // }, [selectedGatoAdopcion.userID]);
-
-
-  const handleSubmit = async (e) => {
-
-    // console.log(profile)
-    // const templateParams = {
-    //     name: formValue.name,
-    //     email: profile,
-      
-    //     telefono: formValue.telefono
+            console.log("sidsd", data)
+            setProfile(data.correo);
+          if (error) throw new Error(error.message);
+         
         
-    // };
-    
+        }
+      } catch (error) {
+        console.error('Error al obtener datos:', error.message);
+      } finally {
+        // Opcional: cualquier limpieza o acciones finales van aquí
+        console.log('Consulta completada'); // Opcional: mensaje para indicar fin del proceso
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+console.log("su correo", profile)
+  const handleSubmit = async () => {
 
 
+ try {
+      const templateParams = {
+        to_email: profile,
+       
+        reply_to: formValue.email,
+        
+          name: formValue.name,
+          email: formValue.email,
+          cedula: formValue.cedula,
+          edad: formValue.edad,
+          direccion: formValue.direccion,
+          telefono: formValue.telefono,
+          numeroMiembrosHogar: formValue.numeroMiembrosHogar,
+          edadesMiembrosHogar: formValue.edadesMiembrosHogar,
+          experienciaAnimales: formValue.experienciaAnimales,
+          motivoAdopcion: formValue.motivoAdopcion,
+          tieneOtrosAnimales: formValue.animales,
+          animalesVacunados: formValue.animalesVacunados,
+          animalesDesparasitados: formValue.animalesDesparasitados,
+          animalesEsterilizados: formValue.animalesEsterilizados,
+          permisoAnimales: formValue.permisoAnimales,
+          provincia: formValue.provincia,
+          confirmacionAdopcion: formValue.confirmacionAdopcion,
+       
+      };
 
-      // e.preventDefault();
-
-      // console.log(templateParams)
-
-      // emailjs
-      //   .sendForm('service_h7f16tp', 'template_yt04w7b', templateParams, {
-      //     publicKey: '7A-xyLXHrHQM0zJ39',
-      //   })
-      //   .then(
-      //     (response) => {
-      //       console.log('SUCCESS!', response.status, response.text);
-      //     },
-      //     (error) => {
-      //       console.log('FAILED...', error.text);
-      //     },
-      //   );
-      
+      const response = await emailjs.send('service_h7f16tp', 'template_yt04w7b', templateParams, '7A-xyLXHrHQM0zJ39');
+      if(response.text === 'OK') {
+        toast('Formulario enviado con éxito!');
+        onClose();  // Cierra el modal después de enviar el formulario
+      }
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      toast('Hubo un error al enviar el formulario.');
+    }
     
   };
 
@@ -192,7 +211,7 @@ const ModalAdopcion = ({ open, onClose, selectedGatoAdopcion }) => {
   function TextField(props) {
     const { name, label, accepter, ...rest } = props;
     return (
-      <Form.Group controlId={`${name}-3`}>
+      <Form.Group controlId={`${name}`}>
         <Form.ControlLabel>{label} </Form.ControlLabel>
         <Form.Control name={name} accepter={accepter} {...rest} />
       </Form.Group>
@@ -202,9 +221,10 @@ const ModalAdopcion = ({ open, onClose, selectedGatoAdopcion }) => {
 
   return (
     <section>
-      <Modal open={open} onClose={onClose}>
+    <Toaster/>
+      <Modal open={open} onClose={onClose} className="modal-adopcion">
         <Modal.Header>
-          <Modal.Title>Desea adoptar a {} ? </Modal.Title>
+          <Modal.Title>Desea adoptarlo ? </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Panel
@@ -248,7 +268,7 @@ const ModalAdopcion = ({ open, onClose, selectedGatoAdopcion }) => {
         </Modal.Footer>
       </Modal>
 
-      <Modal size={"lg"} open={openForm} onClose={handleCloseForm}  >
+      <Modal size={"lg"} open={openForm} onClose={handleCloseForm} className="modal-adopcion" >
         <Modal.Header>
           <Modal.Title>Formulario</Modal.Title>
         </Modal.Header>

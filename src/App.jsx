@@ -10,7 +10,8 @@ import Historias from './componentes/Historias/Historias'
 import NotFound from './page/NotFound'
 import { supabase } from './supabase/client'
 import { useEffect } from 'react'
-
+import HomeLayout from './componentes/inicio/HomeLayout'
+import PrivateRoute from './PrivateRoute'
 
 
 
@@ -54,29 +55,49 @@ function App() {
  
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   supabase.auth.onAuthStateChange((event, session) => {
+  //     navigate(session ? '/Home' : '/');
+  //   });
+  // }, [navigate]);
+
   useEffect(() => {
-   
-    supabase.auth.onAuthStateChange((event, session) => {
-      if(!session){
+    const { data: authListener  } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session) {
+        navigate('/Home');
+      } else {
         navigate('/');
-
-      }else{
-        navigate('/Adopciones');
       }
-    })
+    });
 
-  }, [navigate]);
-  
+    authListener.subscription.unsubscribe()
+  }, [navigate])
+    
   return (
     <div>
-   <Routes>
+   {/* <Routes>
      <Route path="/" element={<Index />} />
-     <Route path="/Home" element={<Home />} />
-      <Route path="/Adopciones" element={<Adopciones />} />
-      <Route path="/Donaciones" element={<Donaciones />} />
-      <Route path="/Historias" element={<Historias />} />
-      <Route path="*" element={<NotFound />} />
-   </Routes>
+     <Route   path="Home" element={<HomeLayout />}>
+     <Route index   element={<Home />} />
+      <Route path="Adopciones" element={<Adopciones />} />
+      <Route path="Donaciones" element={<Donaciones />} />
+      <Route path="Historias" element={<Historias />} />
+      </Route>
+  
+   <Route path="*" element={<NotFound />} />
+   </Routes> */}
+   <Routes>
+        <Route path="/" element={<Index />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="Home" element={<HomeLayout />}>
+            <Route index element={<Home />} />
+            <Route path="Adopciones" element={<Adopciones />} />
+            <Route path="Donaciones" element={<Donaciones />} />
+            <Route path="Historias" element={<Historias />} />
+          </Route>
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
    </div>
   )
 }

@@ -2,6 +2,7 @@ import {  useEffect, useState } from 'react';
 import './Login.scss'
 import { supabase } from '../../../supabase/client';
 import { useNavigate } from 'react-router-dom';
+import { toast,Toaster } from 'sonner';
 
 
 const Login = () => {
@@ -16,12 +17,19 @@ const Login = () => {
     e.preventDefault();
 
     try{
-      await supabase.auth.signInWithPassword({
+    const {error, user} = await supabase.auth.signInWithPassword({
         email: email, 
         password: contraseña,
     });
+
+    if(error) throw error;
+
+    toast.success('Inicio de sesión exitoso');  // Disparar notificación de éxito
+    console.log('Usuario autenticado:', user);
+      navigate('/Home');  // Navegar a Home tr
   } catch (error){
-      console.log(error)
+    console.error('Error en el inicio de sesión:', error.message);
+    toast.error('Error en el inicio de sesión: ' + error.message);  
     }
 
   }
@@ -31,6 +39,7 @@ const Login = () => {
 
   return (
    <section className="index-login">
+   
     <h3>Inicia sesion</h3>
     <form onSubmit={handleSubmit} className='index-login-contenedor-form'>
         <input

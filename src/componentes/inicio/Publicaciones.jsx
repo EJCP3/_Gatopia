@@ -16,9 +16,9 @@ const SizeDropdown = ({
 }) => (
   <Dropdown appearance="default" noCaret {...props}>
 
-    <Dropdown.Item onClick={(e) => {
+    {/* <Dropdown.Item onClick={(e) => {
       handleOpenUpdate(e, publicacion.id)
-    }}>Editar</Dropdown.Item>
+    }}>Editar</Dropdown.Item> */}
     <Dropdown.Item onClick={() =>  deletePublication(publicacion.id)}>
       Borrar
     </Dropdown.Item>

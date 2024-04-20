@@ -1,31 +1,132 @@
 @use '/src//componentes/index/estilos/base/variables' as v;
 
+.historias {
+    background-color: v.$background; // Using the custom variable for background
+    color: v.$Text; // Custom text color for readability
+    padding: 20px;
 
-.historias{
-    background-color: #FFFFFF;
-}
-
-
-@media screen and (min-width: 1000px){
-
-    .historias{
+    &-header {
         display: flex;
-     
-      
-        &-main{
-            flex-direction: row;
-        display: flex;
-        gap: 25px;
-        flex-wrap: wrap; 
-        justify-content:center;
+        flex-direction: column;
         align-items: center;
-        width: 80%;
+        margin-bottom: 20px;
 
-        &-contenido{
-            width: 40%;
+        &-titulo {
+            font-size: 24px;
+            font-family: v.$font-Khand;
+            color: v.$Primary; // Ensures color consistency with variables
         }
     }
+
+    &-main {
+        display: flex;
+        flex-direction: column;
+       
+
+        &-contenido {
+            border: 1px solid v.$primary-200; // Subtle borders for each historia item
+            padding: 10px;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease-in-out;
+
+            &:hover {
+                box-shadow: 0px 0px 10px 0px v.$primary-200; // Soft shadow on hover for emphasis
+            }
+
+            &-img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+            }
+
+            &-titulo {
+                font-family: v.$font-Khand;
+                margin-top: 10px;
+                font-size: 18px;
+            }
+
+            &-fecha {
+                font-size: 16px;
+                color: v.$text-200;
+            }
+        }
     }
 
-    
+    &-modal {
+        .modal-content {
+            padding: 20px;
+            background-color: v.$bg-300; // Light and neutral background for content
+            font-family: v.$font-Switzer;
+
+            .modal-header {
+                padding-bottom: 10px;
+                border-bottom: 2px solid v.$primary-200;
+
+                .modal-title {
+                    font-size: 20px;
+                    font-weight: bold;
+                    text-align: center;
+                }
+            }
+
+            .home-historias-modal-description {
+                margin-top: 15px;
+                font-size: 16px;
+                text-align: justify;
+            }
+
+            .custom-slider {
+                margin-top: 15px;
+                margin-bottom: 15px;
+
+                img {
+                    max-width: 100%;
+                    border-radius: 5px;
+                }
+            }
+
+            .home-historias-modal-date {
+                font-size: 14px;
+                text-align: center;
+                color: v.$accent-200;
+                margin-top: 10px;
+            }
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: v.$bg-300;
+
+            .rs-btn {
+                font-family: v.$font-Khand;
+                &:hover {
+                    background-color: darken(v.$Primary, 10%);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .historias {
+        &-header {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &-main {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 80%;
+
+            &-contenido {
+                width: calc(33% - 20px); // Three items per row
+                margin: 10px;
+            }
+        }
+    }
 }

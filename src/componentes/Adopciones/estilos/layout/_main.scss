@@ -31,8 +31,124 @@
 }
 
 
+.adopcion-article {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    background: v.$background;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+
+    img {
+        width: 100%;
+        height: 50%;
+    }
+
+    .adopcion-panel {
+        background: v.$bg-200;
+
+        .rs-panel-header {
+            background-color: v.$primary-300;
+            color: v.$Text;
+            font-family: v.$font-Khand;
+        }
+
+        .adopcion-card-sub {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            background: v.$bg-300;
+            color: v.$text-200;
+            font-family: v.$font-Switzer;
+        }
+    }
+}
 
 
+.modal-content {
+    background-color: v.$background;
+    color: v.$Text;
+
+    .modal-header {
+        background-color: v.$Primary;
+        color: v.$background;
+        padding: 20px;
+        font-family: v.$font-Khand;
+        font-size: 20px;
+        text-align: center;
+
+        .modal-title {
+            margin: 0;
+        }
+    }
+
+    .modal-body {
+        padding: 20px;
+        font-family: v.$font-Switzer;
+
+        input, .rs-picker-select, .rs-input, textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid v.$accent-200; // Sutil contraste
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .rs-uploader {
+            width: 100%;
+            border: none;
+            .rs-uploader-trigger {
+                background-color:v.$Primary;
+                color: v.$background;
+                border-radius: 4px;
+            }
+        }
+    }
+
+    .modal-footer {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+
+        .rs-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+
+            &:first-of-type { // Botón primario
+                background-color: v.$Primary;
+                color: v.$background;
+            }
+
+            &:last-of-type { // Botón para cancelar
+                background-color: v.$bg-300;
+                color: v.$text-200;
+            }
+        }
+    }
+}
+.modal-content {
+    .custom-slider img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    .rs-panel {
+        text-align: center;
+        margin-bottom: 15px;
+        background: v.$primary-300;
+
+        .rs-panel-header {
+            background-color: v.$background;
+            color: v.$Text;
+            font-family: v.$font-Khand;
+        }
+    }
+}
 
 
 .adopcion-contenedor-gato{
@@ -97,6 +213,63 @@
        
        }
 
+       .adopcion-article {
+        display: inline-block;
+        width: 240px; // Tamaño específico para PC
+        margin: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 
+        &:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+    }
+
+    .modal-content {
+        .rs-panel {
+            padding: 10px; // Ajuste del padding para más espacio
+
+            p {
+                font-size: 16px; // Tamaño de fuente mayor para mejorar la legibilidad en PC
+            }
+        }
+    }
     
-    }    
+    .modal-contentInput {
+        max-width: 600px; // Un ancho máximo para el modal para evitar que sea demasiado ancho
+        margin: auto; // Centrar el modal en la pantalla
+
+        .modal-header {
+            font-size: 24px; // Aumentar el tamaño del texto para encabezados en pantallas grandes
+        }
+
+        .modal-body {
+            padding: 30px; // Más espacio interior para una mejor legibilidad
+
+            input, .rs-picker-select, .rs-input, textarea {
+                font-size: 18px; // Tamaño de fuente más grande para una mejor legibilidad en PC
+            }
+
+            .rs-uploader {
+                .rs-uploader-trigger {
+                    padding: 12px 20px; // Mayor padding para un mejor manejo
+                }
+            }
+        }
+
+        .modal-footer {
+            padding: 30px; // Aumentar el padding para alinear visualmente con el resto del modal
+            justify-content: flex-end; // Alinear los botones hacia la derecha para una apariencia más estándar de escritorio
+
+            .rs-btn {
+                font-size: 18px; // Aumentar el tamaño de la fuente para los botones
+                padding: 12px 24px; // Mayor tamaño de botones para una fácil interacción
+
+                &:first-of-type { // Estilo para el botón primario
+                    margin-right: 10px; // Asegurar algo de espacio entre los botones
+                }
+            }
+        }
+    }
+}
+    

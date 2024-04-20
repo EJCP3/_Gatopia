@@ -19,6 +19,7 @@ const DatoPerfil = ({ onProfileCompletion, hasRequiredFields, size, open, onClos
   console.log(isEditing)
 
 
+  
   useEffect(() => {
     const fetchProfileData = async () => {
       const user = await supabase.auth.getUser();
@@ -85,7 +86,9 @@ const DatoPerfil = ({ onProfileCompletion, hasRequiredFields, size, open, onClos
   };
 
   const onSubmit = async (data) => {
-    const fechaActual = new Date(Date.now()).toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    try {
+      const fechaFormateada = new Date().toISOString().split("T")[0];
+
 
 
     const {error} = await supabase.storage
@@ -113,44 +116,41 @@ const DatoPerfil = ({ onProfileCompletion, hasRequiredFields, size, open, onClos
   PortadaURL.error ? console.error('Error al obtener el enlace público de la imagen:', PortadaURL.error.message) : null;
 
 
-  console.log("si", fotoURL.data.publicUrl)
-  console.log("no", PortadaURL.data.publicUrl)
+ 
   const user = await supabase.auth.getUser();
    console.log(user.data.user.email)
-  try {
-    if (isEditing) {
-      const { error } = await supabase.from('usuario')
+  
+ 
+    const { error : errorUser, data: userData } = isEditing ? 
+    await supabase.from('usuario')
         .update({
           nombre_usuario: data.usuario,
           provincia : data.provincia,
           descripción : data.descripción,
-          fecha_creacion : fechaActual,
+          fecha_creacion : fechaFormateada,
           foto_perfil: fotoURL.data.publicUrl, // URL de la imagen de perfil
           portada: PortadaURL.data.publicUrl, // URL de la imagen de portada
           userID: user.data.user.id,
         })
-        .eq('userID', user.data.user.id);
-        toast.success("Publicación actualizada");
-
-        if(error){
-          throw error
-        }
-    } else {
+     .eq('userID', user.data.user.id) :
       await supabase.from('usuario').insert({
         nombre_usuario: data.usuario,
         provincia : data.provincia,
         descripción : data.descripción,
-        fecha_creacion : fechaActual,
+        fecha_creacion : fechaFormateada,
         foto_perfil: fotoURL.data.publicUrl, // URL de la imagen de perfil
         portada: PortadaURL.data.publicUrl, // URL de la imagen de portada
         userID: user.id,
       });
-    }
-
     
-    window.location.reload(); // Recargar la página después de guardar el perfil
+
+    if (errorUser) throw new Error('Error al guardar los datos del perfil: ' + errorUser.message);
+    toast.success('Perfil actualizado con éxito');
+    window.location.reload()
+    
   } catch (error) {
     console.error(error);
+    toast.error(error.message);
   }
 
   };

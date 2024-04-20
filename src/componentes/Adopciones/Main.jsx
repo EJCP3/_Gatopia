@@ -1,4 +1,4 @@
-import { Panel } from 'rsuite';
+import { Panel, Grid } from 'rsuite';
 import AttachmentIcon from "@rsuite/icons/Attachment";
 
 
@@ -11,6 +11,26 @@ import ModalAdopcion from './ModalAdopcion';
 
 
 const Main = () => {
+
+
+  const handleDeleteGato = async (gatoId) => {
+    if (!gatoId) return;
+  
+    const { data, error } = await supabase
+      .from('adopcion')
+      .delete()
+      .eq( "id", gatoId );
+  
+    if (error) {
+      console.error('Error al eliminar la publicación:', error.message);
+      toast.error('Error al eliminar la publicación');
+    } else {
+      toast.success('Publicación eliminada correctamente');
+      setOpenInfoGato(false)
+      // Actualizar el estado para reflejar la eliminación
+      setGatos(gatos.filter(gato => gato.id !== gatoId));
+    }
+  };
 
   const [openModalAdopcion, setOpenModalAdopcion] = useState(false);
  
@@ -39,12 +59,14 @@ const handleOpenAdopcion = () => {
     //   console.log(urls)
     // }
   };
-
+  const [userId, setUserId] = useState(null);
 const handleCloseAdopcion = () => setOpenAdopcion(false);
 
  const handleOpenModal = (selectedGatoAdopcion) => {
-     console.log("su nombre es", selectedGatoAdopcion.nombre)
-    SetSelectedGatoAdopcion(selectedGatoAdopcion)
+     console.log("su nombre es", selectedGatoAdopcion)
+     console.log("su id es", selectedGatoAdopcion.userID)
+    SetSelectedGatoAdopcion(selectedGatoAdopcion.userID)
+    console.log("si", )
     setOpenModalAdopcion(true);
     setOpenInfoGato(false);
    
@@ -126,7 +148,11 @@ useEffect(() => {
       { label: 'Tonquinés', value: 'Tonquinés' },
       { label: 'Van Turco', value: 'Van Turco' }
     ]);
+    fetchUser();
+
     fetchGatos();
+
+    
 }, []);
 
 const fetchGatos = async () => {
@@ -140,6 +166,14 @@ const fetchGatos = async () => {
     setGatos(data);
   }
 };
+
+const fetchUser = async () => {
+  const { data: user } = await supabase.auth.getUser();
+  if (user) {
+    setUserId(user.user.id);
+  }
+};
+
 
 
 // Simular la carga de razas de gatos, puedes reemplazar esto con una llamada API real o datos estáticos
@@ -200,15 +234,13 @@ const handleSubmit = async () => {
 
   if (error) {
     console.error("Error inserting data: ", error.message);
-    toast.error({
-      title: "Error",
-      description: "No se pudo guardar la información de adopción."
-    });
+    toast.error(
+     "Completa todos los formulario, para poder poner adopcion"
+    );
   } else {
-    toast.success({
-      title: "Éxito",
-      description: "Información de adopción guardada correctamente."
-    });
+    toast.success(
+      "Información de adopción guardada correctamente."
+  );
     handleCloseAdopcion(); // Cierra el modal tras guardar los datos
   }
 };
@@ -228,103 +260,119 @@ const handleSubmit = async () => {
     <>
     <button onClick={handleOpenAdopcion} className="adopcion-header-btn" >Dar en adopción </button>
   {gatos.map((gato) => (
-    <article key={gato.id} onClick={() => handleOpenInfoGato(gato)}>
-      <Panel shaded bordered bodyFill style={{ display: 'inline-block', width: 240 }}>
-        <img src={gato.foto[0]} height="200" />
+    <article key={gato.id} onClick={() => handleOpenInfoGato(gato)} 
+    className="adopcion-article">
+    
+    <Panel shaded bordered bodyFill className="adopcion-panel">
+        <img src={gato.foto[0]} alt={`Foto de ${gato.nombre}`} />
         <Panel header={gato.nombre}>
-          <div className="adopcion-card-sub">
-            <p className="adopcion-card-sub-nombre">{gato.provincia}</p>
-            <p className="adopcion-card-sub-edad">{gato.edad}</p>
-          </div>
+       
+            <div className="adopcion-card-sub">
+                <p className="adopcion-card-sub-nombre">{gato.provincia}</p>
+                <p className="adopcion-card-sub-edad">{gato.edad}</p>
+              
+            </div>
         </Panel>
-      </Panel>
-    </article>
+        
+    </Panel>
+</article>
   ))}
   {selectedGato && (
-    <Modal size="sm" open={openInfoGato} onClose={handleCloseInfoGato}>
+    <Modal className="modal-content" size="sm" open={openInfoGato} onClose={handleCloseInfoGato}>
           <Modal.Header>
             <Modal.Title>{selectedGato.nombre}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
       <section className="contenedor-cards">
-    <Row>
-      <Col xs={24} sm={12} md={8} lg={6} xl={4.5}>
-        <Panel bordered header="Sexo">
+      <Grid fluid>
+    <Row >
+      <Col xs={24} sm={24} md={8}>
+        <Panel  className="panel-info" bordered header="Sexo">
           <p>{selectedGato.sexo || "Sin información"}</p>
         </Panel>
       </Col>
    
    
-      <Col xs={24} sm={12} md={8} lg={6} xl={5}>
-        <Panel bordered header="Edad">
+      <Col xs={24} sm={24} md={8}>
+        <Panel className="panel-info" bordered header="Edad">
           <p>{selectedGato.edad || "Sin información"}</p>
         </Panel>
       </Col>
    
    
     
-      <Col xs={24} sm={12} md={8} lg={6} xl={5}>
-        <Panel bordered header="Tamaño">
+      <Col xs={24} sm={24} md={8}>
+        <Panel  className="panel-info" bordered header="Tamaño">
           <p>{selectedGato.tamaño || "Sin información"}</p>
         </Panel>
       </Col>
     
    
-      <Col xs={24} sm={12} md={8} lg={6} xl={5}>
-        <Panel bordered header="Pelo">
+      <Col xs={24} sm={24} md={8}>
+        <Panel className="panel-info" bordered header="Pelo">
           <p>{selectedGato.pelo || "Sin información"}</p>
         </Panel>
       </Col>
-      <Col xs={24} sm={12} md={8} lg={6} xl={8}>
-        <Panel bordered header="Energía">
+      <Col xs={24} sm={24} md={8}>
+        <Panel className="panel-info" bordered header="Energía">
           <p>{selectedGato.energia || "Sin información"}</p>
         </Panel>
       </Col>
 
-      <Col xs={24} sm={12} md={8} lg={6} xl={8}>
-        <Panel bordered header="Provincia">
+      <Col xs={24} sm={24} md={8}>
+        <Panel className="panel-info" bordered header="Provincia">
           <p>{selectedGato.provincia || "Sin información"}</p>
         </Panel>
       </Col>
   
      
-      <Col xs={24} sm={12} md={8} lg={6} xl={8}>
-        <Panel bordered header="Peso">
+      <Col xs={24} sm={24} md={8}>
+        <Panel className="panel-info" bordered header="Peso">
           <p>{selectedGato.peso || "Sin información"}</p>
         </Panel>
       </Col>
 
-      <Col xs={24} sm={12} md={8} lg={6} xl={12}>
-        <Panel bordered header="Condiciones">
+      <Col xs={24} sm={24} md={8}>
+        <Panel className="panel-info" bordered header="Condiciones">
           <p>{selectedGato.condiciones || "Sin información"}</p>
         </Panel>
       </Col>
   
-      <Col xs={24} sm={12} md={8} lg={6} xl={12}>
-        <Panel bordered header="Nota">
+      <Col xs={24} sm={24} md={8}>
+        <Panel className="panel-info" bordered header="Nota">
           <p>{selectedGato.nota || "Sin información"}</p>
         </Panel>
       </Col>
 
      
     </Row>
+    </Grid>
+    
     </section>
 
             <Carousel autoplay className="custom-slider">
               {selectedGato.foto.map((foto, index) => (
-                <img key={index} src={foto} height="100" width="100%" alt={`Slide ${index + 1}`} />
+                <img key={index} src={foto} height="100px" width="100%" alt={`Slide ${index + 1}`} />
               ))}
             </Carousel>
+           
           </Modal.Body>
           <Modal.Footer>
+          
           <Button onClick={() => handleOpenModal(selectedGato)}  appearance="primary">Adoptar</Button>
-         
+          
+          {selectedGato.userID === userId && (
+                  <Button color="red" onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteGato(selectedGato.id);
+                  }}>Eliminar</Button>
+                )}
         </Modal.Footer>
         </Modal>
 )}
 <ModalAdopcion selectedGatoAdopcion={selectedGatoAdopcion} open={openModalAdopcion} onClose={handleCloseModal} />
 
-  <Modal open={openAdopcion} onClose={handleCloseInfoGato}>
+  <Modal className="modal-contentInput" open={openAdopcion} onClose={handleCloseInfoGato}>
         <Modal.Header>
           <Modal.Title>Dar en Adopción</Modal.Title>
         </Modal.Header>

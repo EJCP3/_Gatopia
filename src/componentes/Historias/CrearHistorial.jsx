@@ -8,6 +8,7 @@ import "rsuite/dist/rsuite.min.css";
 import { IconButton } from "rsuite";
 
 const CrearHistoria = ({
+  onHistoriaChange,
   historia,
   handleClose,
   openUpdate,
@@ -26,19 +27,28 @@ const CrearHistoria = ({
     handleSubmit,
     formState: { errors },
     reset,
+    setValue 
   } = useForm();
 
+
+  function extractUrls(urlString) {
+    const trimmedString = urlString.slice(1, -1);
+    const urls = trimmedString.split('], [');
+    return urls.map(url => url.trim());
+  }
+  const isNewHistoria = !historia;
   useEffect(() => {
     if (historia) {
-      // Establecer los datos existentes de la historia en el formulario
-      reset({
-        titulo: historia.titulo,
-        descripcion: historia.descripcion,
-        fotos: historia.carusel ? extractUrls(historia.carusel) : [],
-      });
+      // Cargando datos de historia existente
+      setValue('titulo', historia.titulo);
+      setValue('descripcion', historia.descripcion);
       setImageUrl(historia.carusel ? extractUrls(historia.carusel) : []);
+    } else {
+      // Reiniciar para nueva historia
+      reset();
+      setImageUrl([]);
     }
-  }, [historia, reset]);
+  }, [historia, reset, setValue]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -49,74 +59,67 @@ const CrearHistoria = ({
   };
 
   const handleUploadChange = async (fileEvent) => {
-    // Actualiza el estado basado en la lista actual de archivos en el Uploader
-    // Esto incluye añadir nuevas imágenes y eliminar imágenes existentes
-    const currentFiles = fileEvent.filter((file) => file.status !== "removed"); // Filtra archivos que no están marcados como eliminados
+    const currentFiles = fileEvent.filter(file => file.status !== "removed");
+    const uploadPromises = currentFiles.map(async file => {
+        if (file.blobFile && file.status === "inited") {
+            const filePath = `historias/${Date.now()}_${file.name}`;
+            try {
+                let { error, data } = await supabase.storage
+                    .from("historias")
+                    .upload(filePath, file.blobFile);
 
-    // Mapea sobre los archivos que han sido cargados completamente para obtener sus URLs
-    const uploadPromises = currentFiles.map(async (file) => {
-      if (file.blobFile && file.status === "inited") {
-        // Si el archivo es nuevo y está listo para subir
-        const filePath = `historias/${Date.now()}_${Math.random()}_${
-          file.name
-        }`;
-        try {
-          let { error, data } = await supabase.storage
-            .from("historias")
-            .upload(filePath, file.blobFile);
+                if (error) throw error;
 
-          if (error) throw error;
-
-          return supabase.storage.from("historias").getPublicUrl(filePath).data
-            .publicUrl;
-        } catch (error) {
-          console.error("Error uploading image to Supabase:", error.message);
-          toast.error("Error uploading image");
-          return null;
+                return  supabase.storage.from("historias").getPublicUrl(filePath).data.publicUrl;
+            } catch (error) {
+                console.error("Error uploading image to Supabase:", error.message);
+                toast.error("Error uploading image: " + error.message);
+                return null;
+            }
+        } else {
+            return file.url;
         }
-      } else {
-        return file.url; // Retorna la URL existente si el archivo no necesita ser subido
-      }
     });
 
-    const newUrls = (await Promise.all(uploadPromises)).filter(
-      (url) => url !== null
-    );
-    setImageUrl(newUrls); // Establece las nuevas URLs filtrando cualquier nulo que podría surgir de errores
-  };
+    console.log(uploadPromises)
 
-  console.log(imageUrl);
-
+    const newUrls = (await Promise.all(uploadPromises)).filter(url => url !== null);
+    setImageUrl(newUrls);
+};
   const onSubmit = async (data, event) => {
-    event.preventDefault(); // Esto evita el comportamiento por defecto del formulario de enviar automáticamente
     try {
-      const fechaFormateada = new Date().toISOString().split("T")[0];
       const formattedUrls = `[${imageUrl.join("], [")}]`;
-      console.log(formattedUrls);
-
       const historiaData = {
-        titulo: data.titulo || nuevosDatos.titulo,
-        descripción: data.titulo || nuevosDatos.descripcion,
+        titulo: data.titulo,
+        descripción: data.descripcion,
         carusel: formattedUrls,
-        fecha: fechaFormateada,
+        fecha: new Date().toISOString(),
       };
 
-      const { error } = historia
-        ? await supabase
-            .from("historias")
-            .update(historiaData)
-            .eq("id", historia.id)
-        : await supabase.from("historias").insert(historiaData);
+      let error;
+      if (isNewHistoria) {
+        const { error: insertError } = await supabase.from('historias').insert([historiaData]);
+        error = insertError;
+      } else {
+        const { error: updateError } = await supabase.from('historias').update(historiaData).eq('id', historia.id);
+        error = updateError;
+      }
 
       if (error) throw error;
-
-      toast.success(
-        `Historia ${historia ? "actualizada" : "agregada"} con éxito!`
-      );
+      // Cierra el modal y limpia el formulario
+      toast.success({
+        title: 'Éxito',
+        description: `Historia ${isNewHistoria ? 'creada' : 'actualizada'} con éxito`,
+      
+      });
       onClose();
+      onHistoriaChange()
+      window.location.reload()
     } catch (error) {
-      console.error("Error en la operación:", error.message);
-      toast.error("Error al procesar la historia");
+      toast.error({
+        title: 'Error al guardar la historia',
+        description: error.message,
+      });
     }
   };
 
@@ -124,7 +127,9 @@ const CrearHistoria = ({
     <section>
       <Toaster />
       <Modal size={"sm"} open={open || openUpdate} onClose={onClose}>
-        <Modal.Header></Modal.Header>
+        <Modal.Header>
+        <Modal.Title>{isNewHistoria ? 'Crear Historia' : 'Editar Historia'}</Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           <section className="modalpublic-contenedor">
             <form

@@ -35,8 +35,8 @@ const Header = () => {
   }, []);
 
   return (
+   
     <section className="historias-header">
-      <Navegacion />
       <h3 className="historias-header-titulo">
         Historias de los mas valientes
       </h3>
@@ -47,6 +47,7 @@ const Header = () => {
       )}
       <CrearHistoria open={open} onClose={handleClose} />
     </section>
+    
   );
 };
 

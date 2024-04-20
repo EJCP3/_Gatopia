@@ -112,7 +112,7 @@ const CrearPublicacion = ({ publicacionID, onClose , openUpdate, open, onCloseHe
       onCloseHeader();
       onClose();
       fetchData(); 
-     
+      window.location.reload()
      
      // Actualiza la lista de publicaciones
     }

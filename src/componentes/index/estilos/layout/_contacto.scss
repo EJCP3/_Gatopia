@@ -1,10 +1,14 @@
 @use "../base/variables" as v;
 
+
+
+
 .index-contacto {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: v.$bg-200;
 
   &-titulo {
     font-size: 25px;
